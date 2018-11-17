@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
@@ -50,6 +51,7 @@ class SimpleBookingServiceTest {
         // Preparation
         final LocalDate day = LocalDate.of(1985, Month.JANUARY, 2);
         final Booking booking = testdata.newBooking().build();
+        when(bookingPersistencePort.findBookingsByDay(day)).thenReturn(singletonList(booking));
 
         // Execution
         final List<Booking> result = underTest.findBookingsByDay(day);
