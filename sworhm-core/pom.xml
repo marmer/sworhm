@@ -2,14 +2,11 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>sworhm</artifactId>
-        <groupId>io.github.marmer.sworhm</groupId>
-        <version>1.0.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>io.github.marmer.sworhm</groupId>
     <artifactId>sworhm-core</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,6 +16,7 @@
         <junit-jupiter.version>5.3.1</junit-jupiter.version>
         <mockito.version>2.23.0</mockito.version>
         <lombok.version>1.18.4</lombok.version>
+        <java-hamcrest.version>2.0.0.0</java-hamcrest.version>
     </properties>
 
     <dependencyManagement>
@@ -76,7 +74,7 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>java-hamcrest</artifactId>
-            <version>2.0.0.0</version>
+            <version>${java-hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
