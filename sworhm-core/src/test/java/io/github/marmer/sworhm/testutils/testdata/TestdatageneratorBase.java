@@ -1,9 +1,10 @@
 package io.github.marmer.sworhm.testutils.testdata;
 
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.Extension;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
-public abstract class TestdatageneratorBase extends TestWatcher {
+public abstract class TestdatageneratorBase implements Extension, BeforeEachCallback {
     private final ValueProvider valueProvider;
 
     public TestdatageneratorBase(final ValueProvider valueProvider) {
@@ -14,16 +15,16 @@ public abstract class TestdatageneratorBase extends TestWatcher {
         this(new IncrementalValueProvider(1).withIncrement(1));
     }
 
-    @Override
-    protected void starting(final Description description) {
-        this.valueProvider.reset();
-    }
-
     public ValueProvider getValueProvider() {
         return valueProvider;
     }
 
     public <T extends Enum<?>> T nextEnumOf(final Class<T> enumType) {
         return getValueProvider().nextEnumOf(enumType);
+    }
+
+    @Override
+    public void beforeEach(final ExtensionContext context) throws Exception {
+        valueProvider.reset();
     }
 }
