@@ -25,3 +25,6 @@ install:
 - mvn clean install -DskipTests=true -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -B -V -U
 script:
 - mvn org.jacoco:jacoco-maven-plugin:0.8.2:prepare-agent package sonar:sonar -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -V
+env:
+  global:
+    secure: q/iMSdIje8SBFOtpltOWpVtZ7doX1Wdb+Hir+5R9qeGDuiecQmDrPRYKcqX84LA/LUbTYh1qzAjsRoY1HgMcrufSsFHdM9SU4fcjAWjEkIkADeNJ1csBVEtSbFoK6lSIX21/9I3sgHM9mPZvJyiPXp6PJ+X64xk7E+ftX1L4+zXLnwYYhndxL/ZF6fvrJLbTgYtmx+35JfwVVH0Bkgr30BjDJAQ9RSOfUMxyC9CGhCMnpDgTFT6cMx8MvKrBL17iMq1+HxAkWghQU0DLyVRMdBb4HRX0lnW+RLSk1/nnXJ36wBeXYfP7hv2MYUyAF2xRmM1psq92ytnnYX9+2uSJq+PW/kdPadw1wKhKjvA1JfrYmP1KlaMFVzSYn6MeatO2x0chUUCJn3ZY7J4WMfr9hx8mN117TQGpJJGvqfLDNKwG2jLT8DoQInzaumcM19Pn0BAE7a63ezn/z2wo7ALZaak2aSuhRwHoRdiCsxvjFSXMKdiSzEZvLw9pibvPkUHIvl5LqTFi1h7K2IRpTj0R2diZ7+6UCuE6Gq2NesGxjCdXWd5NwMM8tkMkXBs1gTZZxI/ybvj/kP4Ijg2xVf2n7r+v9Sgom/hyPBmEmaWAZMMTY1wnG3sWxUMa8sua5nkHPI/NerFCB9S5BY0OGSLp0aYj0ftH67YE+QJGkh7U3FU=
