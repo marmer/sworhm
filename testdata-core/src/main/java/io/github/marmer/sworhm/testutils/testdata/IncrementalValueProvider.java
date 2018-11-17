@@ -55,32 +55,27 @@ public class IncrementalValueProvider implements ValueProvider {
 
     @Override
     public boolean nextBoolean() {
-        // TODO: marmer implement me
-        return false;
+        return nextLong() % 2 == 1;
     }
 
     @Override
     public byte nextByte() {
-        // TODO: marmer implement me
-        return 0;
+        return (byte) nextLong();
     }
 
     @Override
     public char nextChar() {
-        // TODO: marmer implement me
-        return 0;
+        return (char) nextLong();
     }
 
     @Override
     public short nextShort() {
-        // TODO: marmer implement me
-        return 0;
+        return (short) nextLong();
     }
 
     @Override
     public int nextInt() {
-        // TODO: marmer implement me
-        return 0;
+        return (int) nextLong();
     }
 
     @Override
@@ -92,20 +87,18 @@ public class IncrementalValueProvider implements ValueProvider {
 
     @Override
     public float nextFloat() {
-        // TODO: marmer implement me
-        return 0;
+        return (float) nextDouble();
     }
 
     @Override
     public double nextDouble() {
-        // TODO: marmer implement me
-        return 0;
+        final double next = nextLong();
+        return next + ((next + 1) / 10);
     }
 
     @Override
     public String nextString() {
-        // TODO: marmer implement me
-        return null;
+        return Long.toString(nextLong());
     }
 
     @Override
