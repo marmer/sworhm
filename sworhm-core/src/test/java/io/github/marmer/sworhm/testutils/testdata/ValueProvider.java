@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 public interface ValueProvider extends Extension, BeforeEachCallback {
@@ -35,4 +36,6 @@ public interface ValueProvider extends Extension, BeforeEachCallback {
     default void beforeEach(final ExtensionContext context) {
         reset();
     }
+
+    LocalTime nextLocalTime();
 }

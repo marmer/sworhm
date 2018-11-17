@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 public class IncrementalValueProvider implements ValueProvider {
@@ -87,6 +88,11 @@ public class IncrementalValueProvider implements ValueProvider {
     @Override
     public URI nextURI() {
         return URI.create("scheme:" + nextInt());
+    }
+
+    @Override
+    public LocalTime nextLocalTime() {
+        return nextLocalDateTime().toLocalTime();
     }
 
 }
