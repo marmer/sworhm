@@ -48,7 +48,7 @@ public class IncrementalValueProvider implements ValueProvider {
 
     @Override
     public boolean nextBoolean() {
-        return nextLong() % 2 == 1;
+        return nextLong() % 2 != 0;
     }
 
     @Override
@@ -85,8 +85,7 @@ public class IncrementalValueProvider implements ValueProvider {
 
     @Override
     public double nextDouble() {
-        final double next = nextLong();
-        return next + ((next + 1) / 10);
+        return (double) nextLong();
     }
 
     @Override

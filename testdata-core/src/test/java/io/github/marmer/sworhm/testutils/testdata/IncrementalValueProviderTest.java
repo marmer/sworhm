@@ -29,9 +29,6 @@ class IncrementalValueProviderTest {
                 , arguments("nextByte",
                         new Object[]{(byte) 1, (byte) 2, (byte) 3},
                         (Function<IncrementalValueProvider, Byte>) IncrementalValueProvider::nextByte)
-                , arguments("nextByte",
-                        new Object[]{(byte) 1, (byte) 2, (byte) 3},
-                        (Function<IncrementalValueProvider, Byte>) IncrementalValueProvider::nextByte)
                 , arguments("nextChar",
                         new Object[]{(char) 1, (char) 2, (char) 3},
                         (Function<IncrementalValueProvider, Character>) IncrementalValueProvider::nextChar)
@@ -42,19 +39,19 @@ class IncrementalValueProviderTest {
                         new Object[]{1, 2, 3},
                         (Function<IncrementalValueProvider, Integer>) IncrementalValueProvider::nextInt)
                 , arguments("nextFloat",
-                        new Object[]{1.2f, 2.3f, 3.4f},
+                        new Object[]{1f, 2f, 3f},
                         (Function<IncrementalValueProvider, Float>) IncrementalValueProvider::nextFloat)
                 , arguments("nextDouble",
-                        new Object[]{1.2d, 2.3d, 3.4d},
+                        new Object[]{1d, 2d, 3d},
                         (Function<IncrementalValueProvider, Double>) IncrementalValueProvider::nextDouble)
                 , arguments("nextString",
                         new Object[]{"1", "2", "3"},
                         (Function<IncrementalValueProvider, String>) IncrementalValueProvider::nextString)
                 , arguments("nextBigDecimal",
                         new Object[]{
-                                BigDecimal.valueOf(1.2).setScale(2, RoundingMode.HALF_UP),
-                                BigDecimal.valueOf(2.3).setScale(2, RoundingMode.HALF_UP),
-                                BigDecimal.valueOf(3.4).setScale(2, RoundingMode.HALF_UP)},
+                                BigDecimal.valueOf(1).setScale(2, RoundingMode.HALF_UP),
+                                BigDecimal.valueOf(2).setScale(2, RoundingMode.HALF_UP),
+                                BigDecimal.valueOf(3).setScale(2, RoundingMode.HALF_UP)},
                         (Function<IncrementalValueProvider, BigDecimal>) IncrementalValueProvider::nextBigDecimal)
                 , arguments("nextBigInteger",
                         new Object[]{
@@ -217,70 +214,79 @@ class IncrementalValueProviderTest {
         );
     }
 
-    private static Stream<Arguments> base0() {
+    private static Stream<Arguments> negativeBase() {
         return Stream.of(
                 arguments("nextLong",
-                        new Object[]{0L, 1L, 2L},
+                        new Object[]{-2L, -1L, 0L, 1L, 2L},
                         (Function<IncrementalValueProvider, Long>) IncrementalValueProvider::nextLong)
                 , arguments("nextBoolean",
                         new Object[]{false, true, false},
                         (Function<IncrementalValueProvider, Boolean>) IncrementalValueProvider::nextBoolean)
                 , arguments("nextByte",
-                        new Object[]{(byte) 0, (byte) 1, (byte) 2},
-                        (Function<IncrementalValueProvider, Byte>) IncrementalValueProvider::nextByte)
-                , arguments("nextByte",
-                        new Object[]{(byte) 0, (byte) 1, (byte) 2},
+                        new Object[]{(byte) -2, (byte) -1, (byte) 0, (byte) 1, (byte) 2},
                         (Function<IncrementalValueProvider, Byte>) IncrementalValueProvider::nextByte)
                 , arguments("nextChar",
-                        new Object[]{(char) 0, (char) 1, (char) 2},
+                        new Object[]{(char) -2, (char) -1, (char) 0, (char) 1, (char) 2},
                         (Function<IncrementalValueProvider, Character>) IncrementalValueProvider::nextChar)
                 , arguments("nextShort",
-                        new Object[]{(short) 0, (short) 1, (short) 2},
+                        new Object[]{(short) -2, (short) -1, (short) 0, (short) 1, (short) 2},
                         (Function<IncrementalValueProvider, Short>) IncrementalValueProvider::nextShort)
                 , arguments("nextInt",
-                        new Object[]{0, 1, 2},
+                        new Object[]{-2, -1, 0, 1, 2},
                         (Function<IncrementalValueProvider, Integer>) IncrementalValueProvider::nextInt)
                 , arguments("nextFloat",
-                        new Object[]{0.1f, 1.2f, 2.3f},
+                        new Object[]{-2f, -1f, 0f, 1f, 2f},
                         (Function<IncrementalValueProvider, Float>) IncrementalValueProvider::nextFloat)
                 , arguments("nextDouble",
-                        new Object[]{0.1d, 1.2d, 2.3d},
+                        new Object[]{-2d, -1d, 0d, 1d, 2d},
                         (Function<IncrementalValueProvider, Double>) IncrementalValueProvider::nextDouble)
                 , arguments("nextString",
-                        new Object[]{"0", "1", "2"},
+                        new Object[]{"-2", "-1", "0", "1", "2"},
                         (Function<IncrementalValueProvider, String>) IncrementalValueProvider::nextString)
                 , arguments("nextBigDecimal",
                         new Object[]{
-                                BigDecimal.valueOf(0.1).setScale(2, RoundingMode.HALF_UP),
-                                BigDecimal.valueOf(1.2).setScale(2, RoundingMode.HALF_UP),
-                                BigDecimal.valueOf(2.3).setScale(2, RoundingMode.HALF_UP)},
+                                BigDecimal.valueOf(-2d).setScale(2, RoundingMode.HALF_UP),
+                                BigDecimal.valueOf(-1d).setScale(2, RoundingMode.HALF_UP),
+                                BigDecimal.valueOf(0d).setScale(2, RoundingMode.HALF_UP),
+                                BigDecimal.valueOf(1d).setScale(2, RoundingMode.HALF_UP),
+                                BigDecimal.valueOf(2d).setScale(2, RoundingMode.HALF_UP)},
                         (Function<IncrementalValueProvider, BigDecimal>) IncrementalValueProvider::nextBigDecimal)
                 , arguments("nextBigInteger",
                         new Object[]{
+                                BigInteger.valueOf(-2),
+                                BigInteger.valueOf(-1),
                                 BigInteger.valueOf(0),
                                 BigInteger.valueOf(1),
                                 BigInteger.valueOf(2)},
                         (Function<IncrementalValueProvider, BigInteger>) IncrementalValueProvider::nextBigInteger)
                 , arguments("nextLocalDateTime",
                         new Object[]{
+                                LocalDateTime.of(1999, 12, 28, 23, 57),
+                                LocalDateTime.of(1999, 12, 29, 23, 58),
                                 LocalDateTime.of(1999, 12, 30, 23, 59),
                                 LocalDateTime.of(2000, 1, 1, 0, 0),
                                 LocalDateTime.of(2000, 1, 2, 0, 1)},
                         (Function<IncrementalValueProvider, LocalDateTime>) IncrementalValueProvider::nextLocalDateTime)
                 , arguments("nextLocalDate",
                         new Object[]{
+                                LocalDate.of(1999, 12, 29),
+                                LocalDate.of(1999, 12, 30),
                                 LocalDate.of(1999, 12, 31),
                                 LocalDate.of(2000, 1, 1),
                                 LocalDate.of(2000, 1, 2)},
                         (Function<IncrementalValueProvider, LocalDate>) IncrementalValueProvider::nextLocalDate)
                 , arguments("nextLocalTime",
                         new Object[]{
+                                LocalTime.of(23, 57),
+                                LocalTime.of(23, 58),
                                 LocalTime.of(23, 59),
                                 LocalTime.of(0, 0),
                                 LocalTime.of(0, 1)},
                         (Function<IncrementalValueProvider, LocalTime>) IncrementalValueProvider::nextLocalTime)
                 , arguments("nextZonedDateTime",
                         new Object[]{
+                                ZonedDateTime.of(LocalDateTime.of(1999, 12, 28, 23, 57), ZoneId.systemDefault()),
+                                ZonedDateTime.of(LocalDateTime.of(1999, 12, 29, 23, 58), ZoneId.systemDefault()),
                                 ZonedDateTime.of(LocalDateTime.of(1999, 12, 30, 23, 59), ZoneId.systemDefault()),
                                 ZonedDateTime.of(LocalDateTime.of(2000, 1, 1, 0, 0), ZoneId.systemDefault()),
                                 ZonedDateTime.of(LocalDateTime.of(2000, 1, 2, 0, 1), ZoneId.systemDefault())
@@ -288,52 +294,40 @@ class IncrementalValueProviderTest {
                         (Function<IncrementalValueProvider, ZonedDateTime>) IncrementalValueProvider::nextZonedDateTime)
                 , arguments("nextYear",
                         new Object[]{
+                                Year.of(1997),
+                                Year.of(1998),
                                 Year.of(1999),
                                 Year.of(2000),
                                 Year.of(2001)},
                         (Function<IncrementalValueProvider, Year>) IncrementalValueProvider::nextYear)
                 , arguments("nextMonth",
                         new Object[]{
-                                Month.DECEMBER,
-                                Month.JANUARY,
-                                Month.FEBRUARY,
-                                Month.MARCH,
-                                Month.APRIL,
-                                Month.MAY,
-                                Month.JUNE,
-                                Month.JULY,
-                                Month.AUGUST,
-                                Month.SEPTEMBER,
                                 Month.OCTOBER,
                                 Month.NOVEMBER,
                                 Month.DECEMBER,
-                                Month.JANUARY},
+                                Month.JANUARY,
+                                Month.FEBRUARY,},
                         (Function<IncrementalValueProvider, Month>) IncrementalValueProvider::nextMonth)
                 , arguments("nextYear",
                         new Object[]{
+                                Year.of(1997),
+                                Year.of(1998),
                                 Year.of(1999),
                                 Year.of(2000),
                                 Year.of(2001)},
                         (Function<IncrementalValueProvider, Year>) IncrementalValueProvider::nextYear)
                 , arguments("nextYearMonth",
                         new Object[]{
+                                YearMonth.of(1999, Month.OCTOBER),
+                                YearMonth.of(1999, Month.NOVEMBER),
                                 YearMonth.of(1999, Month.DECEMBER),
                                 YearMonth.of(2000, Month.JANUARY),
-                                YearMonth.of(2000, Month.FEBRUARY),
-                                YearMonth.of(2000, Month.MARCH),
-                                YearMonth.of(2000, Month.APRIL),
-                                YearMonth.of(2000, Month.MAY),
-                                YearMonth.of(2000, Month.JUNE),
-                                YearMonth.of(2000, Month.JULY),
-                                YearMonth.of(2000, Month.AUGUST),
-                                YearMonth.of(2000, Month.SEPTEMBER),
-                                YearMonth.of(2000, Month.OCTOBER),
-                                YearMonth.of(2000, Month.NOVEMBER),
-                                YearMonth.of(2000, Month.DECEMBER),
-                                YearMonth.of(2001, Month.JANUARY)},
+                                YearMonth.of(2000, Month.FEBRUARY),},
                         (Function<IncrementalValueProvider, YearMonth>) IncrementalValueProvider::nextYearMonth)
                 , arguments("nextMonthDay",
                         new Object[]{
+                                MonthDay.of(Month.DECEMBER, 29),
+                                MonthDay.of(Month.DECEMBER, 30),
                                 MonthDay.of(Month.DECEMBER, 31),
                                 MonthDay.of(Month.JANUARY, 1),
                                 MonthDay.of(Month.JANUARY, 2),
@@ -341,19 +335,14 @@ class IncrementalValueProviderTest {
                         (Function<IncrementalValueProvider, MonthDay>) IncrementalValueProvider::nextMonthDay)
                 , arguments("nextDayOfWeek",
                         new Object[]{
-                                DayOfWeek.SUNDAY,
-                                DayOfWeek.MONDAY,
-                                DayOfWeek.TUESDAY,
-                                DayOfWeek.WEDNESDAY,
-                                DayOfWeek.THURSDAY,
                                 DayOfWeek.FRIDAY,
                                 DayOfWeek.SATURDAY,
                                 DayOfWeek.SUNDAY,
-                                DayOfWeek.MONDAY},
+                                DayOfWeek.MONDAY,
+                                DayOfWeek.TUESDAY},
                         (Function<IncrementalValueProvider, DayOfWeek>) IncrementalValueProvider::nextDayOfWeek)
                 , arguments("nextEnumOf",
                         new Object[]{
-                                SampleEnum.THIRD,
                                 SampleEnum.FIRST,
                                 SampleEnum.SECOND,
                                 SampleEnum.THIRD,
@@ -361,7 +350,6 @@ class IncrementalValueProviderTest {
                         (Function<IncrementalValueProvider, SampleEnum>) provider -> provider.nextEnumOf(SampleEnum.class))
                 , arguments("nextOf",
                         new Object[]{
-                                "3",
                                 "1",
                                 "2",
                                 "3",
@@ -369,15 +357,16 @@ class IncrementalValueProviderTest {
                         (Function<IncrementalValueProvider, String>) provider -> provider.nextOf("1", "2", "3"))
                 , arguments("nextOf",
                         new Object[]{
-                                4,
-                                1,
                                 2,
                                 3,
                                 4,
-                                1},
+                                1,
+                                2},
                         (Function<IncrementalValueProvider, Integer>) provider -> provider.nextOf(1, 2, 3, 4))
                 , arguments("nextURI",
                         new Object[]{
+                                URI.create("scheme:-2"),
+                                URI.create("scheme:-1"),
                                 URI.create("scheme:0"),
                                 URI.create("scheme:1"),
                                 URI.create("scheme:2"),
@@ -389,7 +378,7 @@ class IncrementalValueProviderTest {
     @ParameterizedTest(name = "{0}: {1}")
     @MethodSource("defaultIncrements")
     @DisplayName("Test with default increments and base")
-    public void defaultIncremtnTests(final String description, final Object[] expectedValues, final Function<IncrementalValueProvider, ?> method)
+    public void defaultBaseAndIncremtnTests(final String description, final Object[] expectedValues, final Function<IncrementalValueProvider, ?> method)
             throws Exception {
         // Preparation
         final IncrementalValueProvider underTest = new IncrementalValueProvider();
@@ -404,12 +393,12 @@ class IncrementalValueProviderTest {
     }
 
     @ParameterizedTest(name = "{0}: {1}")
-    @MethodSource("base0")
-    @DisplayName("Test with base 0 and default increment")
-    public void base0IncremtnTests(final String description, final Object[] expectedValues, final Function<IncrementalValueProvider, ?> method)
+    @MethodSource("negativeBase")
+    @DisplayName("Test with base -2 and default increment")
+    public void nevativeBase(final String description, final Object[] expectedValues, final Function<IncrementalValueProvider, ?> method)
             throws Exception {
         // Preparation
-        final IncrementalValueProvider underTest = new IncrementalValueProvider(0);
+        final IncrementalValueProvider underTest = new IncrementalValueProvider(-2);
 
         // Execution
         final Object[] values = Stream.generate(() -> method.apply(underTest))
