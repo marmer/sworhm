@@ -167,9 +167,15 @@ public class IncrementalValueProvider implements ValueProvider {
 
     @Override
     public <T> T nextOf(final T... values) {
-        return values == null || values.length == 0 ?
-                null :
-                values[(nextInt() - 1) % values.length];
+        if (values == null || values.length == 0) {
+            return null;
+        }
+        final int indexBase = nextInt() - 1;
+        return values[(
+                indexBase < 0 ?
+                        values.length - Math.abs(indexBase) :
+                        indexBase)
+                % values.length];
     }
 
 
