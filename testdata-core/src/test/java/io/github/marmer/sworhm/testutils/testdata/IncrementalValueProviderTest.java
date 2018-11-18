@@ -492,8 +492,8 @@ class IncrementalValueProviderTest {
                 , arguments("nextOf",
                         new Object[]{
                                 2,
-                                0,
-                                3},
+                                1,
+                                4},
                         (Function<IncrementalValueProvider, Integer>) provider -> provider.nextOf(1, 2, 3, 4))
                 , arguments("nextURI",
                         new Object[]{
