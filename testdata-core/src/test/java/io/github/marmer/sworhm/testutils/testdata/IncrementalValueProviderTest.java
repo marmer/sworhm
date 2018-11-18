@@ -375,6 +375,135 @@ class IncrementalValueProviderTest {
         );
     }
 
+    private static Stream<Arguments> increment3() {
+        return Stream.of(
+                arguments("nextLong",
+                        new Object[]{-2L, 1L, 4L},
+                        (Function<IncrementalValueProvider, Long>) IncrementalValueProvider::nextLong)
+                , arguments("nextBoolean",
+                        new Object[]{false, true, false},
+                        (Function<IncrementalValueProvider, Boolean>) IncrementalValueProvider::nextBoolean)
+                , arguments("nextByte",
+                        new Object[]{(byte) -2, (byte) 1, (byte) 4},
+                        (Function<IncrementalValueProvider, Byte>) IncrementalValueProvider::nextByte)
+                , arguments("nextChar",
+                        new Object[]{(char) -2, (char) 1, (char) 4},
+                        (Function<IncrementalValueProvider, Character>) IncrementalValueProvider::nextChar)
+                , arguments("nextShort",
+                        new Object[]{(short) -2, (short) 1, (short) 4},
+                        (Function<IncrementalValueProvider, Short>) IncrementalValueProvider::nextShort)
+                , arguments("nextInt",
+                        new Object[]{-2, 1, 4},
+                        (Function<IncrementalValueProvider, Integer>) IncrementalValueProvider::nextInt)
+                , arguments("nextFloat",
+                        new Object[]{-2f, 1f, 4f},
+                        (Function<IncrementalValueProvider, Float>) IncrementalValueProvider::nextFloat)
+                , arguments("nextDouble",
+                        new Object[]{-2d, 1d, 4d},
+                        (Function<IncrementalValueProvider, Double>) IncrementalValueProvider::nextDouble)
+                , arguments("nextString",
+                        new Object[]{"-2", "1", "4"},
+                        (Function<IncrementalValueProvider, String>) IncrementalValueProvider::nextString)
+                , arguments("nextBigDecimal",
+                        new Object[]{
+                                BigDecimal.valueOf(-2d).setScale(2, RoundingMode.HALF_UP),
+                                BigDecimal.valueOf(1d).setScale(2, RoundingMode.HALF_UP),
+                                BigDecimal.valueOf(4d).setScale(2, RoundingMode.HALF_UP)},
+                        (Function<IncrementalValueProvider, BigDecimal>) IncrementalValueProvider::nextBigDecimal)
+                , arguments("nextBigInteger",
+                        new Object[]{
+                                BigInteger.valueOf(-2),
+                                BigInteger.valueOf(1),
+                                BigInteger.valueOf(4)},
+                        (Function<IncrementalValueProvider, BigInteger>) IncrementalValueProvider::nextBigInteger)
+                , arguments("nextLocalDateTime",
+                        new Object[]{
+                                LocalDateTime.of(1999, 12, 28, 23, 57),
+                                LocalDateTime.of(2000, 1, 1, 0, 0),
+                                LocalDateTime.of(2000, 1, 4, 0, 3)},
+                        (Function<IncrementalValueProvider, LocalDateTime>) IncrementalValueProvider::nextLocalDateTime)
+                , arguments("nextLocalDate",
+                        new Object[]{
+                                LocalDate.of(1999, 12, 29),
+                                LocalDate.of(2000, 1, 1),
+                                LocalDate.of(2000, 1, 4)},
+                        (Function<IncrementalValueProvider, LocalDate>) IncrementalValueProvider::nextLocalDate)
+                , arguments("nextLocalTime",
+                        new Object[]{
+                                LocalTime.of(23, 57),
+                                LocalTime.of(0, 0),
+                                LocalTime.of(0, 3)},
+                        (Function<IncrementalValueProvider, LocalTime>) IncrementalValueProvider::nextLocalTime)
+                , arguments("nextZonedDateTime",
+                        new Object[]{
+                                ZonedDateTime.of(LocalDateTime.of(1999, 12, 28, 23, 57), ZoneId.systemDefault()),
+                                ZonedDateTime.of(LocalDateTime.of(2000, 1, 1, 0, 0), ZoneId.systemDefault()),
+                                ZonedDateTime.of(LocalDateTime.of(2000, 1, 4, 0, 3), ZoneId.systemDefault())
+                        },
+                        (Function<IncrementalValueProvider, ZonedDateTime>) IncrementalValueProvider::nextZonedDateTime)
+                , arguments("nextYear",
+                        new Object[]{
+                                Year.of(1997),
+                                Year.of(2000),
+                                Year.of(2003)},
+                        (Function<IncrementalValueProvider, Year>) IncrementalValueProvider::nextYear)
+                , arguments("nextMonth",
+                        new Object[]{
+                                Month.OCTOBER,
+                                Month.JANUARY,
+                                Month.APRIL,},
+                        (Function<IncrementalValueProvider, Month>) IncrementalValueProvider::nextMonth)
+                , arguments("nextYear",
+                        new Object[]{
+                                Year.of(1997),
+                                Year.of(2000),
+                                Year.of(2003)},
+                        (Function<IncrementalValueProvider, Year>) IncrementalValueProvider::nextYear)
+                , arguments("nextYearMonth",
+                        new Object[]{
+                                YearMonth.of(1999, Month.OCTOBER),
+                                YearMonth.of(2000, Month.JANUARY),
+                                YearMonth.of(2000, Month.APRIL),},
+                        (Function<IncrementalValueProvider, YearMonth>) IncrementalValueProvider::nextYearMonth)
+                , arguments("nextMonthDay",
+                        new Object[]{
+                                MonthDay.of(Month.DECEMBER, 29),
+                                MonthDay.of(Month.JANUARY, 1),
+                                MonthDay.of(Month.JANUARY, 4)},
+                        (Function<IncrementalValueProvider, MonthDay>) IncrementalValueProvider::nextMonthDay)
+                , arguments("nextDayOfWeek",
+                        new Object[]{
+                                DayOfWeek.FRIDAY,
+                                DayOfWeek.MONDAY,
+                                DayOfWeek.THURSDAY},
+                        (Function<IncrementalValueProvider, DayOfWeek>) IncrementalValueProvider::nextDayOfWeek)
+                , arguments("nextEnumOf",
+                        new Object[]{
+                                SampleEnum.FIRST,
+                                SampleEnum.FIRST,
+                                SampleEnum.FIRST},
+                        (Function<IncrementalValueProvider, SampleEnum>) provider -> provider.nextEnumOf(SampleEnum.class))
+                , arguments("nextOf",
+                        new Object[]{
+                                "1",
+                                "1",
+                                "1"},
+                        (Function<IncrementalValueProvider, String>) provider -> provider.nextOf("1", "2", "3"))
+                , arguments("nextOf",
+                        new Object[]{
+                                2,
+                                0,
+                                3},
+                        (Function<IncrementalValueProvider, Integer>) provider -> provider.nextOf(1, 2, 3, 4))
+                , arguments("nextURI",
+                        new Object[]{
+                                URI.create("scheme:-2"),
+                                URI.create("scheme:1"),
+                                URI.create("scheme:4")},
+                        (Function<IncrementalValueProvider, URI>) IncrementalValueProvider::nextURI)
+        );
+    }
+
     @ParameterizedTest(name = "{0}: {1}")
     @MethodSource("defaultIncrements")
     @DisplayName("Test with default increments and base")
@@ -409,10 +538,27 @@ class IncrementalValueProviderTest {
         assertThat(values, arrayContaining(expectedValues));
     }
 
+    @ParameterizedTest(name = "{0}: {1}")
+    @MethodSource("increment3")
+    @DisplayName("Test with default base and default an increment of 3")
+    public void increment3(final String description, final Object[] expectedValues, final Function<IncrementalValueProvider, ?> method)
+            throws Exception {
+        // Preparation
+        final IncrementalValueProvider underTest = new IncrementalValueProvider(-2).withIncrement(3);
+
+        // Execution
+        final Object[] values = Stream.generate(() -> method.apply(underTest))
+                .limit(expectedValues.length)
+                .toArray();
+
+        // Assertion
+        assertThat(values, arrayContaining(expectedValues));
+    }
+
+    // TODO: marmer 18.11.2018 negative increment
     enum SampleEnum {
         FIRST,
         SECOND,
         THIRD
     }
-
 }
