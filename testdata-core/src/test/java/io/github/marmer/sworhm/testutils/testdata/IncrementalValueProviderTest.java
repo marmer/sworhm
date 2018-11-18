@@ -5,6 +5,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
+import java.net.URI;
+import java.time.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -46,10 +51,174 @@ class IncrementalValueProviderTest {
                 , arguments("nextString",
                         new Object[]{"1", "2", "3"},
                         (Function<IncrementalValueProvider, String>) IncrementalValueProvider::nextString)
+                , arguments("nextBigDecimal",
+                        new Object[]{
+                                BigDecimal.valueOf(1.2).setScale(2, RoundingMode.HALF_UP),
+                                BigDecimal.valueOf(2.3).setScale(2, RoundingMode.HALF_UP),
+                                BigDecimal.valueOf(3.4).setScale(2, RoundingMode.HALF_UP)},
+                        (Function<IncrementalValueProvider, BigDecimal>) IncrementalValueProvider::nextBigDecimal)
+                , arguments("nextBigInteger",
+                        new Object[]{
+                                BigInteger.valueOf(1),
+                                BigInteger.valueOf(2),
+                                BigInteger.valueOf(3)},
+                        (Function<IncrementalValueProvider, BigInteger>) IncrementalValueProvider::nextBigInteger)
+                , arguments("nextLocalDateTime",
+                        new Object[]{
+                                LocalDateTime.of(2000, 1, 1, 0, 0),
+                                LocalDateTime.of(2000, 1, 2, 0, 1),
+                                LocalDateTime.of(2000, 1, 3, 0, 2)},
+                        (Function<IncrementalValueProvider, LocalDateTime>) IncrementalValueProvider::nextLocalDateTime)
+                , arguments("nextLocalDate",
+                        new Object[]{
+                                LocalDate.of(2000, 1, 1),
+                                LocalDate.of(2000, 1, 2),
+                                LocalDate.of(2000, 1, 3)},
+                        (Function<IncrementalValueProvider, LocalDate>) IncrementalValueProvider::nextLocalDate)
+                , arguments("nextLocalTime",
+                        new Object[]{
+                                LocalTime.of(0, 0),
+                                LocalTime.of(0, 1),
+                                LocalTime.of(0, 2)},
+                        (Function<IncrementalValueProvider, LocalTime>) IncrementalValueProvider::nextLocalTime)
+                , arguments("nextZonedDateTime",
+                        new Object[]{
+                                ZonedDateTime.of(LocalDateTime.of(2000, 1, 1, 0, 0), ZoneId.systemDefault()),
+                                ZonedDateTime.of(LocalDateTime.of(2000, 1, 2, 0, 1), ZoneId.systemDefault()),
+                                ZonedDateTime.of(LocalDateTime.of(2000, 1, 3, 0, 2), ZoneId.systemDefault())},
+                        (Function<IncrementalValueProvider, ZonedDateTime>) IncrementalValueProvider::nextZonedDateTime)
+                , arguments("nextYear",
+                        new Object[]{
+                                Year.of(2000),
+                                Year.of(2001),
+                                Year.of(2002)},
+                        (Function<IncrementalValueProvider, Year>) IncrementalValueProvider::nextYear)
+                , arguments("nextMonth",
+                        new Object[]{
+                                Month.JANUARY,
+                                Month.FEBRUARY,
+                                Month.MARCH,
+                                Month.APRIL,
+                                Month.MAY,
+                                Month.JUNE,
+                                Month.JULY,
+                                Month.AUGUST,
+                                Month.SEPTEMBER,
+                                Month.OCTOBER,
+                                Month.NOVEMBER,
+                                Month.DECEMBER,
+                                Month.JANUARY},
+                        (Function<IncrementalValueProvider, Month>) IncrementalValueProvider::nextMonth)
+                , arguments("nextYear",
+                        new Object[]{
+                                Year.of(2000),
+                                Year.of(2001),
+                                Year.of(2002)},
+                        (Function<IncrementalValueProvider, Year>) IncrementalValueProvider::nextYear)
+                , arguments("nextYearMonth",
+                        new Object[]{
+                                YearMonth.of(2000, Month.JANUARY),
+                                YearMonth.of(2000, Month.FEBRUARY),
+                                YearMonth.of(2000, Month.MARCH),
+                                YearMonth.of(2000, Month.APRIL),
+                                YearMonth.of(2000, Month.MAY),
+                                YearMonth.of(2000, Month.JUNE),
+                                YearMonth.of(2000, Month.JULY),
+                                YearMonth.of(2000, Month.AUGUST),
+                                YearMonth.of(2000, Month.SEPTEMBER),
+                                YearMonth.of(2000, Month.OCTOBER),
+                                YearMonth.of(2000, Month.NOVEMBER),
+                                YearMonth.of(2000, Month.DECEMBER),
+                                YearMonth.of(2001, Month.JANUARY)},
+                        (Function<IncrementalValueProvider, YearMonth>) IncrementalValueProvider::nextYearMonth)
+                , arguments("nextMonthDay",
+                        new Object[]{
+                                MonthDay.of(Month.JANUARY, 1),
+                                MonthDay.of(Month.JANUARY, 2),
+                                MonthDay.of(Month.JANUARY, 3),
+                                MonthDay.of(Month.JANUARY, 4),
+                                MonthDay.of(Month.JANUARY, 5),
+                                MonthDay.of(Month.JANUARY, 6),
+                                MonthDay.of(Month.JANUARY, 7),
+                                MonthDay.of(Month.JANUARY, 8),
+                                MonthDay.of(Month.JANUARY, 9),
+                                MonthDay.of(Month.JANUARY, 10),
+                                MonthDay.of(Month.JANUARY, 11),
+                                MonthDay.of(Month.JANUARY, 12),
+                                MonthDay.of(Month.JANUARY, 13),
+                                MonthDay.of(Month.JANUARY, 14),
+                                MonthDay.of(Month.JANUARY, 15),
+                                MonthDay.of(Month.JANUARY, 16),
+                                MonthDay.of(Month.JANUARY, 17),
+                                MonthDay.of(Month.JANUARY, 18),
+                                MonthDay.of(Month.JANUARY, 19),
+                                MonthDay.of(Month.JANUARY, 20),
+                                MonthDay.of(Month.JANUARY, 21),
+                                MonthDay.of(Month.JANUARY, 22),
+                                MonthDay.of(Month.JANUARY, 23),
+                                MonthDay.of(Month.JANUARY, 24),
+                                MonthDay.of(Month.JANUARY, 25),
+                                MonthDay.of(Month.JANUARY, 26),
+                                MonthDay.of(Month.JANUARY, 27),
+                                MonthDay.of(Month.JANUARY, 28),
+                                MonthDay.of(Month.JANUARY, 29),
+                                MonthDay.of(Month.JANUARY, 30),
+                                MonthDay.of(Month.JANUARY, 31),
+                                MonthDay.of(Month.FEBRUARY, 1)},
+                        (Function<IncrementalValueProvider, MonthDay>) IncrementalValueProvider::nextMonthDay)
+                , arguments("nextDayOfWeek",
+                        new Object[]{
+                                DayOfWeek.MONDAY,
+                                DayOfWeek.TUESDAY,
+                                DayOfWeek.WEDNESDAY,
+                                DayOfWeek.THURSDAY,
+                                DayOfWeek.FRIDAY,
+                                DayOfWeek.SATURDAY,
+                                DayOfWeek.SUNDAY,
+                                DayOfWeek.MONDAY},
+                        (Function<IncrementalValueProvider, DayOfWeek>) IncrementalValueProvider::nextDayOfWeek)
+                , arguments("nextEnumOf",
+                        new Object[]{
+                                SampleEnum.FIRST,
+                                SampleEnum.SECOND,
+                                SampleEnum.THIRD,
+                                SampleEnum.FIRST},
+                        (Function<IncrementalValueProvider, SampleEnum>) provider -> provider.nextEnumOf(SampleEnum.class))
+                , arguments("nextOf",
+                        new Object[]{
+                                "1",
+                                "2",
+                                "3",
+                                "1"},
+                        (Function<IncrementalValueProvider, String>) provider -> provider.nextOf("1", "2", "3"))
+                , arguments("nextOf",
+                        new Object[]{
+                                1,
+                                2,
+                                3,
+                                4,
+                                1},
+                        (Function<IncrementalValueProvider, Integer>) provider -> provider.nextOf(1, 2, 3, 4))
+                , arguments("nextOf",
+                        new Object[]{
+                                null,
+                                null},
+                        (Function<IncrementalValueProvider, Integer>) provider -> provider.nextOf())
+                , arguments("nextOf",
+                        new Object[]{
+                                null,
+                                null},
+                        (Function<IncrementalValueProvider, Integer>) provider -> provider.nextOf(null))
+                , arguments("nextURI",
+                        new Object[]{
+                                URI.create("scheme:1"),
+                                URI.create("scheme:2"),
+                                URI.create("scheme:3")},
+                        (Function<IncrementalValueProvider, URI>) IncrementalValueProvider::nextURI)
         );
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{0}: {1}")
     @MethodSource("defaultIncrements")
     @DisplayName("Test with default increments and base")
     public void defaultIncremtnTests(final String description, final Object[] expectedValues, final Function<IncrementalValueProvider, ?> method)
@@ -64,6 +233,12 @@ class IncrementalValueProviderTest {
 
         // Assertion
         assertThat(values, arrayContaining(expectedValues));
+    }
+
+    enum SampleEnum {
+        FIRST,
+        SECOND,
+        THIRD
     }
 
 }

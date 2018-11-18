@@ -2,16 +2,9 @@ package io.github.marmer.sworhm.testutils.testdata;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.net.URI;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.MonthDay;
-import java.time.Year;
-import java.time.YearMonth;
-import java.time.ZonedDateTime;
+import java.time.*;
 
 /**
  * Provides Values based on an incrementing number. By default the counting starts based on number 1 and increments it
@@ -103,80 +96,80 @@ public class IncrementalValueProvider implements ValueProvider {
 
     @Override
     public BigDecimal nextBigDecimal() {
-        // TODO: marmer implement me
-        return null;
+        return BigDecimal.valueOf(nextFloat()).setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override
     public BigInteger nextBigInteger() {
-        // TODO: marmer implement me
-        return null;
+        return BigInteger.valueOf(nextLong());
     }
 
     @Override
     public LocalTime nextLocalTime() {
-        // TODO: marmer implement me
-        return null;
+        return LocalTime.of(0, 0)
+                .plusMinutes(nextLong() - 1);
     }
 
     @Override
     public LocalDate nextLocalDate() {
-        // TODO: marmer implement me
-        return null;
+        final long val = nextLong();
+        return LocalDate.of(2000, 1, 1)
+                .plusDays(val - 1);
     }
 
     @Override
     public LocalDateTime nextLocalDateTime() {
-        // TODO: marmer implement me
-        return null;
+        final long val = nextLong();
+        return LocalDateTime.of(2000, 1, 1, 0, 0)
+                .plusDays(val - 1)
+                .plusMinutes(val - 1);
     }
 
     @Override
     public ZonedDateTime nextZonedDateTime() {
-        // TODO: marmer implement me
-        return null;
+        return ZonedDateTime.of(nextLocalDateTime(), ZoneId.systemDefault());
     }
 
     @Override
     public Year nextYear() {
-        // TODO: marmer implement me
-        return null;
+        return Year.of(1999 + nextInt());
     }
 
     @Override
     public Month nextMonth() {
-        // TODO: marmer implement me
-        return null;
+        return Month.JANUARY.plus(nextLong() - 1);
     }
 
     @Override
     public YearMonth nextYearMonth() {
-        // TODO: marmer implement me
-        return null;
+        return YearMonth.of(2000, Month.JANUARY).plusMonths(nextLong() - 1);
     }
 
     @Override
     public MonthDay nextMonthDay() {
-        // TODO: marmer implement me
-        return null;
+        return MonthDay.from(nextLocalDate());
     }
 
     @Override
     public DayOfWeek nextDayOfWeek() {
-        // TODO: marmer implement me
-        return null;
+        return DayOfWeek.MONDAY.plus(nextLong() - 1);
     }
 
     @Override
     public <T extends Enum<?>> T nextEnumOf(final Class<T> enumType) {
-        // TODO: marmer implement me
-        return null;
+        return nextOf(enumType.getEnumConstants());
     }
 
     @Override
     public URI nextURI() {
-        // TODO: marmer implement me
-        return null;
+        return URI.create("scheme:" + nextInt());
+    }
+
+    @Override
+    public <T> T nextOf(final T... values) {
+        return values == null || values.length == 0 ?
+                null :
+                values[(nextInt() - 1) % values.length];
     }
 
 

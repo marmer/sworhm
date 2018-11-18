@@ -3,15 +3,7 @@ package io.github.marmer.sworhm.testutils.testdata;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.MonthDay;
-import java.time.Year;
-import java.time.YearMonth;
-import java.time.ZonedDateTime;
+import java.time.*;
 
 /**
  * Provides Values of different types.
@@ -62,4 +54,6 @@ public interface ValueProvider {
     <T extends Enum<?>> T nextEnumOf(Class<T> enumType);
 
     URI nextURI();
+
+    <T> T nextOf(T... values);
 }
