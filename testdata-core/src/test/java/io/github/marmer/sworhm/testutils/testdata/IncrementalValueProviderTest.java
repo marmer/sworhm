@@ -9,7 +9,16 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.net.URI;
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.MonthDay;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -18,6 +27,12 @@ import static org.hamcrest.Matchers.arrayContaining;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class IncrementalValueProviderTest {
+    enum SampleEnum {
+        FIRST,
+        SECOND,
+        THIRD
+    }
+
     private static Stream<Arguments> defaultIncrements() {
         return Stream.of(
                 arguments("nextLong",
@@ -555,10 +570,26 @@ class IncrementalValueProviderTest {
         assertThat(values, arrayContaining(expectedValues));
     }
 
-    // TODO: marmer 18.11.2018 negative increment
-    enum SampleEnum {
-        FIRST,
-        SECOND,
-        THIRD
+    @ParameterizedTest(name = "{0}: {1}")
+    @MethodSource("defaultIncrements")
+    @DisplayName("Test with default increments and base after Reset")
+    public void testReset_SomeValuesRequested_ShouldServeValuesFromTheBeginningAgain(
+            final String description,
+            final Object[] expectedValues,
+            final Function<IncrementalValueProvider, ?> method)
+            throws Exception {
+        // Preparation
+        final IncrementalValueProvider underTest = new IncrementalValueProvider();
+        Stream.generate(() -> method.apply(underTest))
+                .limit(expectedValues.length)
+                .toArray();
+        underTest.reset();
+        // Execution
+        final Object[] valuesAfterReset = Stream.generate(() -> method.apply(underTest))
+                .limit(expectedValues.length)
+                .toArray();
+
+        // Assertion
+        assertThat(valuesAfterReset, arrayContaining(expectedValues));
     }
 }
