@@ -1,7 +1,6 @@
 package io.github.marmer.sworhm.testutils.testdata.junit5;
 
 import io.github.marmer.sworhm.testutils.testdata.ValueProvider;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,6 @@ class IncrementalValueProviderJUnit5Test {
 
     @RegisterExtension
     private final IncrementalValueProviderJUnit5 underTestInLifecycle = new IncrementalValueProviderJUnit5();
-
-    @BeforeEach
-    void setUp() {
-    }
 
     @Test
     @DisplayName("Should reset to default base before each testmethod")
