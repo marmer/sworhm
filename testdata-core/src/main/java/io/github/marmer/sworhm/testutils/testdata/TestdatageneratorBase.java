@@ -11,7 +11,7 @@ package io.github.marmer.sworhm.testutils.testdata;
  * In Addition you should add a methods to provide Objects (or builder) populated by values of the {@link ValueProvider}
  * for some real testdata. In your testcode you then only have to change values relevant for your testcase.
  */
-public abstract class TestdatageneratorBase {
+public class TestdatageneratorBase {
     private final ValueProvider valueProvider;
 
     /**
