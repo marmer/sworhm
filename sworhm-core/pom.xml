@@ -17,6 +17,7 @@
         <mockito.version>2.23.0</mockito.version>
         <lombok.version>1.18.4</lombok.version>
         <java-hamcrest.version>2.0.0.0</java-hamcrest.version>
+        <testdata-core.version>1.0.0-SNAPSHOT</testdata-core.version>
     </properties>
 
     <dependencyManagement>
@@ -76,6 +77,11 @@
             <artifactId>java-hamcrest</artifactId>
             <version>${java-hamcrest.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.marmer.sworhm</groupId>
+            <artifactId>testdata-core-junit5</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
