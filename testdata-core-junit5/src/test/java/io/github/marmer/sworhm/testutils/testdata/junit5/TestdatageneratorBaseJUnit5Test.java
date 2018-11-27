@@ -48,7 +48,7 @@ class TestdatageneratorBaseJUnit5Test {
         verify(valueProvider).reset();
     }
 
-    @RepeatedTest(3)
+    @RepeatedTest(4)
     @DisplayName("Junit lifecycle should work")
     public void testGetValueProvider_MultipleTimesCalled_BasedValueProviderShouldServeTheSameValuesInEachRun()
             throws Exception {
