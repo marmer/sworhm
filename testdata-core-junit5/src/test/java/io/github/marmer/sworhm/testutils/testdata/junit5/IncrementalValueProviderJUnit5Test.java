@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 class IncrementalValueProviderJUnit5Test {
 
     @RegisterExtension
-    private final IncrementalValueProviderJUnit5 underTestInLifecycle = new IncrementalValueProviderJUnit5();
+    final IncrementalValueProviderJUnit5 underTestInLifecycle = new IncrementalValueProviderJUnit5();
 
     @Test
     @DisplayName("Should reset to default base before each testmethod")

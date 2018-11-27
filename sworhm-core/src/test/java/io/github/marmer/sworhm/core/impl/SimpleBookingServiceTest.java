@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class SimpleBookingServiceTest {
     @RegisterExtension
-    private final Testdatagenerator testdata = new Testdatagenerator();
+    final Testdatagenerator testdata = new Testdatagenerator();
 
     @InjectMocks
     private SimpleBookingService underTest;
