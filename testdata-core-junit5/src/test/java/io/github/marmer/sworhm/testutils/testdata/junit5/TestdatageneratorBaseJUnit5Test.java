@@ -23,7 +23,7 @@ import static org.mockito.Mockito.verify;
 class TestdatageneratorBaseJUnit5Test {
 
     @RegisterExtension
-    private final TestdatageneratorBaseJUnit5 underTestInLifecycle = new TestdatageneratorBaseJUnit5();
+    final TestdatageneratorBaseJUnit5 underTestInLifecycle = new TestdatageneratorBaseJUnit5();
     private TestdatageneratorBaseJUnit5 underTest;
 
     @Mock
