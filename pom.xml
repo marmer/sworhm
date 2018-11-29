@@ -10,7 +10,7 @@
     <modules>
         <module>testdata-core</module>
         <module>testdata-core-junit5</module>
-        <module>sworhm-core</module>
+        <module>sworhm-server</module>
     </modules>
     <packaging>pom</packaging>
 
