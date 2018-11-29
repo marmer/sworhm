@@ -1,5 +1,6 @@
-package io.github.marmer.sworhm.core.model;
+package io.github.marmer.sworhm.model;
 
+import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.testutils.testdata.ValueProvider;
 
 public class BookingTestdata {

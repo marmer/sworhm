@@ -1,8 +1,8 @@
 package io.github.marmer.sworhm.core.impl;
 
 import io.github.marmer.sworhm.core.model.Booking;
-import io.github.marmer.sworhm.core.model.Testdatagenerator;
 import io.github.marmer.sworhm.core.persistence.BookingPersistencePort;
+import io.github.marmer.sworhm.model.Testdatagenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -30,6 +30,7 @@ class SimpleBookingServiceTest {
 
     @Mock
     private BookingPersistencePort bookingPersistencePort;
+
     @Test
     public void testStoreBooking_BookingGiven_ShouldServePersistedVersion()
             throws Exception {
