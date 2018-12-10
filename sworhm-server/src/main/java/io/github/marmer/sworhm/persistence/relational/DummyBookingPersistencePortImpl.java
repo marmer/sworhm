@@ -1,4 +1,4 @@
-package io.github.marmer.sworhm.core.persistence.impl;
+package io.github.marmer.sworhm.persistence.relational;
 
 import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.core.persistence.BookingPersistencePort;
