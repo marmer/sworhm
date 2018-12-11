@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 public class RealSystemTimeService implements SystemTimeService {
     @Override
     public LocalDateTime now() {
-        // TODO: marmer 11.12.2018 implement} me
-        return null;
+        return LocalDateTime.now();
     }
 }
