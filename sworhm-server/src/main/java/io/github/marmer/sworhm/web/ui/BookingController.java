@@ -20,6 +20,11 @@ public class BookingController {
 
     @GetMapping("/bookings")
     String getDefaultBookingPage() {
+        return getTodaysBookingPage();
+    }
+
+    @GetMapping("/day/:today/bookings")
+    String getTodaysBookingPage() {
         return "redirect:/day/:" + systemTimeService.now().toLocalDate() + "/bookings";
     }
 
