@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BookingsLoadIT {
+class BookingsLoadIT {
     @Inject
     private MockMvc mockMvc;
 
@@ -31,7 +31,7 @@ public class BookingsLoadIT {
 
     @Test
     @DisplayName("Request for any bookings should serve Bookings for today")
-    public void testGetBookings_RequestForAnyBookingsShouldServeBookingsForToday()
+    void testGetBookings_RequestForAnyBookingsShouldServeBookingsForToday()
             throws Exception {
         // Preparation
         final LocalDateTime now = LocalDateTime.of(2000, 4, 3, 2, 1);

@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class RootControllerTest {
+class RootControllerIT {
     @Autowired
     private RootController underTest;
     @Autowired
@@ -26,7 +26,7 @@ class RootControllerTest {
 
     @Test
     @DisplayName("Rootcall should redirect to bookings default page")
-    public void testGetRoot_RootcallShouldRedirectToBookingsDefaultPage()
+    void testGetRoot_RootcallShouldRedirectToBookingsDefaultPage()
             throws Exception {
         // Preparation
 
