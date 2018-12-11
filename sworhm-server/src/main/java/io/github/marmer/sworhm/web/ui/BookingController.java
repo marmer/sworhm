@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.time.LocalDate;
 
 @Controller
-@RequestMapping("/bookings")
+@RequestMapping
 public class BookingController {
-    @GetMapping()
+    @GetMapping("/bookings")
     String getDefaultBookingPage() {
-        // TODO: marmer 10.12.2018 "give today"
-        return "redirect:/bookings/:1985-01-02";
+        return "redirect:/day/:/bookings";
     }
 
     @GetMapping("/:{day}")
