@@ -28,7 +28,7 @@ class BookingControllerTest {
     private SystemTimeService systemTimeService;
 
     @Test
-    @DisplayName("Get request for any bookings should redirect to todays bookings")
+    @DisplayName("Get request for any bookings should redirect to todays bookings date")
     void testGetDefaultBookingPage_GetRequestForAnyBookingsShouldRedirectToTodaysBookings()
             throws Exception {
         // Preparation
@@ -37,6 +37,23 @@ class BookingControllerTest {
 
         // Execution
         final ResultActions result = mockMvc.perform(get("/bookings")
+                .accept(APPLICATION_JSON));
+
+        // Assertion
+        result.andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/day/:2002-02-20/bookings"));
+    }
+
+    @Test
+    @DisplayName("Get request for todays bookings should redirect to todays bookings date")
+    void testGetTodaysBookingPage_GetRequestForAnyBookingsShouldRedirectToTodaysBookings()
+            throws Exception {
+        // Preparation
+        final LocalDateTime now = LocalDateTime.of(2002, 2, 20, 1, 2);
+        when(systemTimeService.now()).thenReturn(now);
+
+        // Execution
+        final ResultActions result = mockMvc.perform(get("/day/:today/bookings")
                 .accept(APPLICATION_JSON));
 
         // Assertion
