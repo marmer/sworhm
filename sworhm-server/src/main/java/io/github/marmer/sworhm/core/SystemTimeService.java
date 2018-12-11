@@ -8,5 +8,10 @@ import java.time.LocalDateTime;
  * This service is especially helpful for tests.
  */
 public interface SystemTimeService {
+    /**
+     * Serves the current date and time.
+     *
+     * @return now.
+     */
     LocalDateTime now();
 }
