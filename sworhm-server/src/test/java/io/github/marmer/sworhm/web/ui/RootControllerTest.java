@@ -3,36 +3,25 @@ package io.github.marmer.sworhm.web.ui;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.inject.Inject;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-@ExtendWith(SpringExtension.class)
-@WebMvcTest
+@ExtendWith(MockitoExtension.class)
 class RootControllerTest {
-    @Inject
+    @InjectMocks
     private RootController underTest;
-    @Inject
-    private MockMvc mockMvc;
 
     @Test
     @DisplayName("Rootcall should redirect to bookings default page")
     void testGetRoot_RootcallShouldRedirectToBookingsDefaultPage()
             throws Exception {
-        // Preparation
-
         // Execution
-        final ResultActions result = mockMvc.perform(get("/"));
+        final String result = underTest.getDefaultSite();
 
         // Assertion
-        result.andExpect(status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrlTemplate("/bookings"));
+        assertThat(result, is("redirect:/day/:today/bookings"));
     }
 }

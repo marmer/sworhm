@@ -36,6 +36,6 @@ class RootControllerIT {
 
         // Assertion
         result.andExpect(status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrlTemplate("/bookings"));
+                .andExpect(MockMvcResultMatchers.redirectedUrlTemplate("/day/:today/bookings"));
     }
 }

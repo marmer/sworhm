@@ -4,27 +4,21 @@ import io.github.marmer.sworhm.core.SystemTimeService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.inject.Inject;
 import java.time.LocalDateTime;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest
+@ExtendWith(MockitoExtension.class)
 class BookingControllerTest {
-    @Inject
-    private MockMvc mockMvc;
-    @MockBean
+    @InjectMocks
+    private BookingController underTest;
+    @Mock
     private SystemTimeService systemTimeService;
 
     @Test
@@ -36,12 +30,10 @@ class BookingControllerTest {
         when(systemTimeService.now()).thenReturn(now);
 
         // Execution
-        final ResultActions result = mockMvc.perform(get("/bookings")
-                .accept(APPLICATION_JSON));
+        final String result = underTest.getDefaultBookingPage();
 
         // Assertion
-        result.andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/day/:2002-02-20/bookings"));
+        assertThat(result, is("redirect:/day/:2002-02-20/bookings"));
     }
 
     @Test
@@ -53,12 +45,10 @@ class BookingControllerTest {
         when(systemTimeService.now()).thenReturn(now);
 
         // Execution
-        final ResultActions result = mockMvc.perform(get("/day/:today/bookings")
-                .accept(APPLICATION_JSON));
+        final String result = underTest.getTodaysBookingPage();
 
         // Assertion
-        result.andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/day/:2002-02-20/bookings"));
+        assertThat(result, is("redirect:/day/:2002-02-20/bookings"));
     }
 
 }

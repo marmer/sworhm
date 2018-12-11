@@ -26,8 +26,8 @@ class NavigationIT {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("Rootcall should redirect to bookings default page")
-    void testGetRoot_RootcallShouldRedirectToBookingsDefaultPage()
+    @DisplayName("Rootcall should redirect to bookings today page")
+    void testGetRoot_RootcallShouldRedirectToBookingsTodayPage()
             throws Exception {
         // Preparation
 
@@ -36,6 +36,6 @@ class NavigationIT {
 
         // Assertion
         result.andExpect(status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrlTemplate("/bookings"));
+                .andExpect(MockMvcResultMatchers.redirectedUrlTemplate("/day/:today/bookings"));
     }
 }
