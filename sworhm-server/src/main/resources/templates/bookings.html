@@ -1,6 +1,5 @@
-
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
@@ -38,8 +37,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>squirrel hunt this is a very long annoying text which may confuse a little ... or not ...
+                    <tr th:each="booking : ${bookings}">
+                        <td th:text="${booking.description}">squirrel hunt this is a very long annoying text which may
+                            confuse a little ... or not
+                            ...
                         </td>
                         <td>09:25</td>
                         <td>10:32</td>
