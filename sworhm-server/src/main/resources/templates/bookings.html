@@ -24,13 +24,14 @@
             </button>
         </div>
         <div>
-            <div class="table-responsive-md">
+            <div class="table-responsive-sm">
                 <table class="table table-sm">
                     <thead>
                     <tr>
-                        <th scope="col">StartTime</th>
-                        <th scope="col">Duration</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Start-Time</th>
+                        <th scope="col">End-Time</th>
+                        <th scope="col">Duration</th>
                         <th scope="col">Notes</th>
                         <th scope="col">Ticket</th>
                         <th scope="col">Actions</th>
@@ -38,50 +39,21 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td><input placeholder="e.g. 09:25" type="time"></td>
-                        <td><input placeholder="e.g. 01:15" type="time"></td>
-                        <td><textarea placeholder="What has been done" rows="1"></textarea></td>
-                        <td><textarea placeholder="personal notes" rows="1"></textarea></td>
-                        <td><textarea placeholder="TICKET-123" rows="1"></textarea></td>
+                        <td>squirrel hunt this is a very long annoying text which may confuse a little ... or not ...
+                        </td>
+                        <td>09:25</td>
+                        <td>10:32</td>
+                        <td>01:07</td>
+                        <td>got none</td>
+                        <td>SQUIRREL-123</td>
                         <td>
-                            <div class="btn-group">
-                                <button class="btn btn-primary" title="add" type="button"><i
-                                        class="fas fa-plus"></i></button>
+                            <span class="btn-group">
+                                <button class="btn btn-primary" title="edit" type="button"><i
+                                        class="fas fa-edit"></i></button>
                                 <button class="btn btn-danger" title="remove" type="button"><i
                                         class="fas fa-trash-alt"></i></button>
-                            </div>
+                            </span>
                         </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                bla
-
-                <table>
-                    <tbody>
-                    <tr>
-                        <th></th>
-                        <th>A</th>
-                        <th>B</th>
-                        <th>C</th>
-                    </tr>
-                    <tr>
-                        <th>1</th>
-                        <td><span contenteditable id="A1">#####</span></td>
-                        <td><span contenteditable id="B1"></span></td>
-                        <td><span contenteditable id="C1"></span></td>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td><span contenteditable id="A2"></span></td>
-                        <td><span contenteditable id="B2"></span></td>
-                        <td><span contenteditable id="C2"></span></td>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td><span contenteditable id="A3"></span></td>
-                        <td><span contenteditable id="B3"></span></td>
-                        <td><span contenteditable id="C3"></span></td>
                     </tr>
                     </tbody>
                 </table>
