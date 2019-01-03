@@ -42,6 +42,6 @@ class BookingsLoadIT {
                 .accept(MediaType.APPLICATION_JSON_UTF8));
 
         // Assertion
-        result.andExpect(redirectedUrl("/day/:2000-04-03/bookings"));
+        result.andExpect(redirectedUrl("/day/:today/bookings"));
     }
 }
