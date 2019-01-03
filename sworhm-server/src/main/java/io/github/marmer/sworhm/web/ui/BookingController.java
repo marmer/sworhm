@@ -25,7 +25,7 @@ public class BookingController {
 
     @GetMapping("/bookings")
     String getDefaultBookingPage() {
-        return getTodaysBookingPage();
+        return "redirect:/day/:today/bookings";
     }
 
     @GetMapping("/day/:today/bookings")
@@ -43,7 +43,7 @@ public class BookingController {
     }
 
     @Data
-    public static class BookingDTO {
+    private static class BookingDTO {
         private String description;
     }
 }

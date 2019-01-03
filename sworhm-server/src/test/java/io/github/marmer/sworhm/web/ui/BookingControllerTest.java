@@ -25,15 +25,11 @@ class BookingControllerTest {
     @DisplayName("Get request for any bookings should redirect to todays bookings date")
     void testGetDefaultBookingPage_GetRequestForAnyBookingsShouldRedirectToTodaysBookings()
             throws Exception {
-        // Preparation
-        final LocalDateTime now = LocalDateTime.of(2002, 2, 20, 1, 2);
-        when(systemTimeService.now()).thenReturn(now);
-
         // Execution
         final String result = underTest.getDefaultBookingPage();
 
         // Assertion
-        assertThat(result, is("redirect:/day/:2002-02-20/bookings"));
+        assertThat(result, is("redirect:/day/:today/bookings"));
     }
 
     @Test
