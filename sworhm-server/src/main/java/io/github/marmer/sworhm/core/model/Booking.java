@@ -9,4 +9,5 @@ import java.time.LocalTime;
 @Builder
 public class Booking {
     private final LocalTime startTime;
+    private final BookingDay day;
 }

@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BookingControllerTest {
+class BookingEntityControllerTest {
     @InjectMocks
     private BookingController underTest;
     @Mock
