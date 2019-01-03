@@ -45,5 +45,6 @@ public class BookingController {
     @Data
     private static class BookingDTO {
         private String description;
+        private String startTime;
     }
 }
