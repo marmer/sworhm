@@ -27,6 +27,8 @@
         <lombok.version>1.18.4</lombok.version>
         <java-hamcrest.version>2.0.0.0</java-hamcrest.version>
         <testdata-core.version>1.0.0-SNAPSHOT</testdata-core.version>
+        <mapstruct.version>1.3.0.Beta2</mapstruct.version>
+        <version.hamcrest-matcher-generator>3.2.0</version.hamcrest-matcher-generator>
         <spring.testprofiles>test</spring.testprofiles>
     </properties>
 
@@ -54,6 +56,18 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -132,6 +146,13 @@
             <groupId>io.github.marmer.sworhm</groupId>
             <artifactId>testdata-core-junit5</artifactId>
             <version>${testdata-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.marmer.testutils</groupId>
+            <artifactId>hamcrest-matcher-generator-dependencies</artifactId>
+            <version>${version.hamcrest-matcher-generator}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -140,6 +161,26 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>io.github.marmer.testutils</groupId>
+                <artifactId>hamcrest-matcher-generator-maven-plugin</artifactId>
+                <version>${version.hamcrest-matcher-generator}</version>
+                <configuration>
+                    <matcherSources>
+                        <matcherSource>io.github.marmer.sworhm</matcherSource>
+                    </matcherSources>
+                    <ignoreClassesWithoutProperties>false</ignoreClassesWithoutProperties>
+                    <outputDir>target/generated-test-sources</outputDir>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>matchers</id>
+                        <goals>
+                            <goal>matchers</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -160,7 +201,15 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
-
-
 </project>
