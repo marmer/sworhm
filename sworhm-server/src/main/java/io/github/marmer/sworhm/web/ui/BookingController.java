@@ -43,7 +43,7 @@ public class BookingController {
     }
 
     @Data
-    private static class BookingDTO {
+    public static class BookingDTO {
         private String description;
         private String startTime;
     }
