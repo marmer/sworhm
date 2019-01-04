@@ -4,19 +4,16 @@ import io.github.marmer.sworhm.core.persistence.entity.BookingEntity;
 import io.github.marmer.sworhm.core.persistence.entity.TestdatageneratorPersistence;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static io.github.marmer.sworhm.core.model.BookingDayMatcher.isBookingDay;
 import static io.github.marmer.sworhm.core.model.BookingMatcher.isBooking;
 import static org.junit.Assert.assertThat;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-class BookingConverterTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+class BookingConverterIT {
     @RegisterExtension
     private final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
 
@@ -24,7 +21,7 @@ class BookingConverterTest {
     private BookingConverter underTest;
 
     @Test
-    @DisplayName("Default conversion")
+    @DisplayName("Sample conversion")
     void testConvert_DefaultConversion()
             throws Exception {
         // Preparation
