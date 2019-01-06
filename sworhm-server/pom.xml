@@ -183,6 +183,13 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.github.marmer.sworhm</groupId>
+                        <artifactId>testdata-core-junit5</artifactId>
+                        <version>1.0.0-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
