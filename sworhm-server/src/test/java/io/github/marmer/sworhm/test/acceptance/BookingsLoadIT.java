@@ -21,6 +21,8 @@ import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import static io.github.marmer.sworhm.web.ui.bookingcontrollertest.BookingDTOMatcher.isBookingDTO;
+import static org.hamcrest.Matchers.contains;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -83,7 +85,10 @@ class BookingsLoadIT {
         final ResultActions result = mockMvc.perform(get("/bookings"));
 
         // Assertion
-        result.andExpect(model().attribute("bookings", todaysBookingEntity.getStartTime()))
+        result.andExpect(model().attribute("bookings",
+                contains(isBookingDTO()
+                        .withStartTime(todaysBookingEntity.getStartTime())
+                        .withId(todaysBookingEntity.getId()))))
                 .andExpect(view().name("bookings"));
     }
 }
