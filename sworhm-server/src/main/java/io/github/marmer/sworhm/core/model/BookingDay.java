@@ -8,5 +8,6 @@ import java.time.LocalDate;
 @Value
 @Builder
 public class BookingDay {
+    private final String id;
     private final LocalDate day;
 }
