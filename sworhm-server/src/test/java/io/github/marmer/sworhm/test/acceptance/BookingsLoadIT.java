@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static io.github.marmer.sworhm.web.ui.bookingcontrollertest.BookingDTOMatcher.isBookingDTO;
+import static io.github.marmer.sworhm.web.ui.bookingcontroller.BookingDTOMatcher.isBookingDTO;
 import static org.hamcrest.Matchers.contains;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -38,7 +38,7 @@ class BookingsLoadIT {
 
     @Inject
     private MockMvc mockMvc;
-    @MockBean
+    @SpyBean
     private SystemTimeService systemTimeService;
     @Inject
     private TransactionlessTestEntityManager transactionlessTestEntityManager;
@@ -65,7 +65,9 @@ class BookingsLoadIT {
     void testGetTodaysBookingsPage_RequestForTodaysBookingShouldServeBookingsOfTodayOnly()
             throws Exception {
         // Preparation
+        final LocalDateTime now = LocalDateTime.of(2002, 1, 2, 15, 30);
         final LocalDate today = LocalDate.of(2002, 1, 2);
+        when(systemTimeService.now()).thenReturn(now);
         final BookingEntity yesterdaysBookingEntity = testdatageneratorPersistence.newBookingEntity()
                 .day(testdatageneratorPersistence.newBookingDayEntity()
                         .day(today.minusDays(1)).build()).build();
@@ -82,7 +84,7 @@ class BookingsLoadIT {
         transactionlessTestEntityManager.persistAndGetId(yesterdaysBookingEntity);
 
         // Execution
-        final ResultActions result = mockMvc.perform(get("/bookings"));
+        final ResultActions result = mockMvc.perform(get("/day/:today/bookings"));
 
         // Assertion
         result.andExpect(model().attribute("bookings",

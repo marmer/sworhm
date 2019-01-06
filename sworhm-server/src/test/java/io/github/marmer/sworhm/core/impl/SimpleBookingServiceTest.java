@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class SimpleBookingEntityServiceTest {
+class SimpleBookingServiceTest {
     @RegisterExtension
     final Testdatagenerator testdata = new Testdatagenerator();
 
