@@ -3,12 +3,11 @@ package io.github.marmer.sworhm.core.model;
 import lombok.Builder;
 import lombok.Value;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 @Value
 @Builder
-public class Booking {
+public class BookingDay {
     private final String id;
-    private final LocalTime startTime;
-    private final BookingDay day;
+    private final LocalDate day;
 }
