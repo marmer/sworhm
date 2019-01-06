@@ -1,9 +1,8 @@
 package io.github.marmer.sworhm.test.acceptance;
 
 import io.github.marmer.sworhm.core.SystemTimeService;
-import io.github.marmer.sworhm.core.persistence.entity.BookingEntity;
-import io.github.marmer.sworhm.core.persistence.entity.TestdatageneratorPersistence;
-import io.github.marmer.sworhm.model.Testdatagenerator;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
+import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.testutils.springhelper.DbCleanupService;
 import io.github.marmer.sworhm.testutils.springhelper.TransactionlessTestEntityManager;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +20,7 @@ import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static io.github.marmer.sworhm.web.ui.bookingcontroller.BookingDTOMatcher.isBookingDTO;
+import static io.github.marmer.sworhm.web.ui.dto.BookingDTOMatcher.isBookingDTO;
 import static org.hamcrest.Matchers.contains;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -31,8 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class BookingsLoadIT {
-    @RegisterExtension
-    private final Testdatagenerator testdatagenerator = new Testdatagenerator();
     @RegisterExtension
     private final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
 

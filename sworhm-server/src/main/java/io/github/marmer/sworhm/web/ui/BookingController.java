@@ -4,7 +4,7 @@ import io.github.marmer.sworhm.core.BookingService;
 import io.github.marmer.sworhm.core.SystemTimeService;
 import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.web.ui.converter.BookingDTOConverter;
-import lombok.Data;
+import io.github.marmer.sworhm.web.ui.dto.BookingDTO;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Controller
@@ -47,10 +46,4 @@ public class BookingController {
         return new ModelAndView("bookings", "bookings", dtos);
     }
 
-    @Data
-    public static class BookingDTO {
-        private String id;
-        private String description;
-        private LocalTime startTime;
-    }
 }

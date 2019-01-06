@@ -1,10 +1,10 @@
 package io.github.marmer.sworhm.persistence.relational;
 
 import io.github.marmer.sworhm.core.model.Booking;
-import io.github.marmer.sworhm.core.persistence.entity.BookingEntity;
-import io.github.marmer.sworhm.core.persistence.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.model.Testdatagenerator;
 import io.github.marmer.sworhm.persistence.relational.converter.BookingConverter;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
+import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.persistence.relational.repositories.BookingEntityRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

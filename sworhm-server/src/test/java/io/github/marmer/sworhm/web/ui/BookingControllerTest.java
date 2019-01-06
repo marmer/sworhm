@@ -5,6 +5,7 @@ import io.github.marmer.sworhm.core.SystemTimeService;
 import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.model.Testdatagenerator;
 import io.github.marmer.sworhm.web.ui.converter.BookingDTOConverter;
+import io.github.marmer.sworhm.web.ui.dto.BookingDTO;
 import io.github.marmer.sworhm.web.ui.dto.TestdatageneratorWebUiDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -59,7 +60,7 @@ class BookingControllerTest {
         when(systemTimeService.now()).thenReturn(now);
         final Booking booking = testdatagenerator.newBooking().build();
         when(bookingService.findBookingsByDay(LocalDate.of(2002, 2, 20))).thenReturn(singletonList(booking));
-        final BookingController.BookingDTO bookingDTO = testdatageneratorWebDTO.newBookingDTO();
+        final BookingDTO bookingDTO = testdatageneratorWebDTO.newBookingDTO();
         when(bookingDTOConverter.convert(singletonList(booking))).thenReturn(singletonList(bookingDTO));
 
         // Execution
@@ -80,7 +81,7 @@ class BookingControllerTest {
         final Booking booking = testdatagenerator.newBooking().build();
         final LocalDate day = LocalDate.of(2000, 5, 6);
         when(bookingService.findBookingsByDay(day)).thenReturn(singletonList(booking));
-        final BookingController.BookingDTO bookingDTO = testdatageneratorWebDTO.newBookingDTO();
+        final BookingDTO bookingDTO = testdatageneratorWebDTO.newBookingDTO();
         when(bookingDTOConverter.convert(singletonList(booking))).thenReturn(singletonList(bookingDTO));
 
         // Execution

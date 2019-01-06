@@ -168,7 +168,9 @@
                 <version>${version.hamcrest-matcher-generator}</version>
                 <configuration>
                     <matcherSources>
-                        <matcherSource>io.github.marmer.sworhm</matcherSource>
+                        <matcherSource>io.github.marmer.sworhm.core.model</matcherSource>
+                        <matcherSource>io.github.marmer.sworhm.persistence.relational.entity</matcherSource>
+                        <matcherSource>io.github.marmer.sworhm.web.ui.dto</matcherSource>
                     </matcherSources>
                     <ignoreClassesWithoutProperties>false</ignoreClassesWithoutProperties>
                     <outputDir>target/generated-test-sources</outputDir>

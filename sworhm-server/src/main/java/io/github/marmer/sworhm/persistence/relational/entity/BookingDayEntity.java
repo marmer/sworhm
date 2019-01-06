@@ -1,4 +1,4 @@
-package io.github.marmer.sworhm.core.persistence.entity;
+package io.github.marmer.sworhm.persistence.relational.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
