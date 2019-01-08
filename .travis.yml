@@ -6,9 +6,7 @@ env:
     - SPRING_DATASOURCE_URL=jdbc:h2:file:~/sworhm
     - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/postgres SPRING_DATASOURCE_USERNAME=postgres
 addons:
-#  apt:
-#    packages:
-#    - oracle-java8-installer
+  postgresql: "10"
   sonarcloud:
     organization: "marmer-github"
     token:
