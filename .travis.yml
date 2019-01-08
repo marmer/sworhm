@@ -32,8 +32,8 @@ before_install:
 install:
 - mvn clean install -DskipTests=true -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -B -V -U
 before_script:
-  - create database sworhm -u postgres
-  - create user sworhm with encrypted password 'sworhmpw' -u postgres
-  - grant all privileges on database sworhm to sworhm -u postgres
+  - psql -U postgres -c "create database sworhm"
+  - psql -U postgres -c "create user sworhm with encrypted password 'sworhmpw'"
+  - psql -U postgres -c "grant all privileges on database sworhm to sworhm"
 script:
   - mvn org.jacoco:jacoco-maven-plugin:0.8.2:prepare-agent verify sonar:sonar -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -V
