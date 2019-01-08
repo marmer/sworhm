@@ -2,18 +2,11 @@ language: java
 jdk: oraclejdk11
 sudo: false
 env:
-  env:
-    global:
-      - PGPORT=5433
   matrix:
     - SPRING_DATASOURCE_URL=jdbc:h2:file:~/sworhm
     - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5433/postgres SPRING_DATASOURCE_USERNAME=postgres
 addons:
-  postgresql: "10"
-  apt:
-    packages:
-      - postgresql-10
-      - postgresql-client-10
+  postgresql: "9.6"
   sonarcloud:
     organization: "marmer-github"
     token:
