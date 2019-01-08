@@ -4,7 +4,7 @@ sudo: false
 env:
   matrix:
     - SPRING_DATASOURCE_URL=jdbc:h2:file:~/sworhm
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/sworhm
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/sworhm SPRING_DATASOURCE_USERNAME=postgres
 addons:
 #  apt:
 #    packages:
