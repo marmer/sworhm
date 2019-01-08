@@ -42,11 +42,11 @@
                         <!--/*@thymesVar id="booking" type="io.github.marmer.sworhm.web.ui.dto.BookingDTO"*/-->
                         <td th:text="${booking.description}">Did a lot of unimportant work
                         </td>
-                        <td>09:25</td>
-                        <td>10:32</td>
-                        <td>01:07</td>
-                        <td>got none</td>
-                        <td>SQUIRREL-123</td>
+                        <td th:text="${booking.startTime}">09:25</td>
+                        <td th:text="${booking.endTime}">10:32</td>
+                        <td th:text="${booking.duration}">01:07</td>
+                        <td th:text="${booking.notes}">got none</td>
+                        <td th:text="${booking.ticket}">SQUIRREL-123</td>
                         <td>
                             <span class="btn-group">
                                 <button class="btn btn-primary" title="edit" type="button"><i
