@@ -5,7 +5,7 @@ import io.github.marmer.sworhm.testutils.testdata.ValueProvider;
 public class BookingEntityTestdata {
     public static BookingEntity.BookingEntityBuilder newBookingEntity(final ValueProvider valueProvider) {
         return BookingEntity.builder()
-                .id(valueProvider.nextString())
+                .id(null)
                 .day(BookingDayEntityTestdata.newBookingDayEntity(valueProvider).build())
                 .startTime(valueProvider.nextLocalTime())
                 .endTime(valueProvider.nextLocalTime())
