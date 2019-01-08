@@ -4,7 +4,7 @@ sudo: false
 env:
   matrix:
     - SPRING_DATASOURCE_URL=jdbc:h2:file:~/sworhm
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/sworhm SPRING_DATASOURCE_USERNAME=postgres
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/postgres SPRING_DATASOURCE_USERNAME=postgres
 addons:
 #  apt:
 #    packages:
@@ -27,7 +27,5 @@ before_install:
 - export PATH=$M2_HOME/bin:$PATH
 install:
 - mvn clean install -DskipTests=true -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -B -V -U
-before_script:
-  - psql -c 'create database sworhm;' -U postgres
 script:
   - mvn org.jacoco:jacoco-maven-plugin:0.8.2:prepare-agent verify sonar:sonar -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -V
