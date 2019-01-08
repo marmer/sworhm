@@ -93,7 +93,8 @@ class BookingControllerTest {
         // Assertion
         assertThat(result, isModelAndView()
                 .withViewName("bookings")
-                .withModel(hasEntry(is("bookings"), contains(bookingDTO))));
+                .withModel(hasEntry(is("bookings"), contains(bookingDTO)))
+                .withModel(hasEntry(is("currentDay"), is(day))));
     }
 
 }

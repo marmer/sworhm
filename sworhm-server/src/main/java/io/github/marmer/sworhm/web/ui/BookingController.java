@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping
@@ -43,7 +45,10 @@ public class BookingController {
     ModelAndView getBookingsForDay(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate day) {
         final List<Booking> bookings = bookingService.findBookingsByDay(day);
         final List<BookingDTO> dtos = bookingDTOConverter.convert(bookings);
-        return new ModelAndView("bookings", "bookings", dtos);
+        final Map<String, Object> model = new HashMap<>();
+        model.put("bookings", dtos);
+        model.put("currentDay", day);
+        return new ModelAndView("bookings", model);
     }
 
 }

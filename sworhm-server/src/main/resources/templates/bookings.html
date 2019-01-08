@@ -16,10 +16,17 @@
     </nav>
     <div class="card">
         <div class="card-header text-center">
-            <button class="btn btn-link button-last-day" title="last" type="button"><i class="fas fa-arrow-left"></i>
+            <button class="btn btn-link button-last-day" title="last" type="button">
+                <a href="/day/:2018-12-11/bookings" th:href="'/day/:' + ${currentDay.minusDays(1)} + '/bookings'">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
             </button>
-            <input name="bookingDay" type="date" value="2018-12-10">
-            <button class="btn btn-link button-next-day" title="next" type="button"><i class="fas fa-arrow-right"></i>
+            <!--/*@thymesVar id="currentDay" type="java.time.LocalDate"*/-->
+            <input name="bookingDay" th:onchange="" th:value="${currentDay}" type="date" value="2018-12-10">
+            <button class="btn btn-link button-next-day" title="next" type="button">
+                <a href="/day/:2018-12-11/bookings" th:href="'/day/:' + ${currentDay.plusDays(1)} + '/bookings'">
+                    <i class="fas fa-arrow-right"> </i>
+                </a>
             </button>
         </div>
         <div>
