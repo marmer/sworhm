@@ -16,11 +16,15 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "BOOKING")
 public class BookingEntity {
-    private LocalTime startTime;
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    private BookingDayEntity day;
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    private BookingDayEntity day;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private int durationInMinutes;
+    private String notes;
+    private String ticket;
 }

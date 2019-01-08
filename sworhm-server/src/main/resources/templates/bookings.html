@@ -39,10 +39,8 @@
                     <tbody>
                     <!--/*@thymesVar id="bookings" type="java.util.List"*/-->
                     <tr th:each="booking : ${bookings}">
-                        <!--/*@thymesVar id="booking" type="io.github.marmer.sworhm.web.ui.BookingController.BookingDTO"*/-->
-                        <td th:text="${booking.description}">squirrel hunt this is a very long annoying text which may
-                            confuse a little ... or not
-                            ...
+                        <!--/*@thymesVar id="booking" type="io.github.marmer.sworhm.web.ui.dto.BookingDTO"*/-->
+                        <td th:text="${booking.description}">Did a lot of unimportant work
                         </td>
                         <td>09:25</td>
                         <td>10:32</td>

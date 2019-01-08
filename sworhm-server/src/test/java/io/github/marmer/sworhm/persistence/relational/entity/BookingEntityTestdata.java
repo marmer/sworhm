@@ -5,8 +5,13 @@ import io.github.marmer.sworhm.testutils.testdata.ValueProvider;
 public class BookingEntityTestdata {
     public static BookingEntity.BookingEntityBuilder newBookingEntity(final ValueProvider valueProvider) {
         return BookingEntity.builder()
+                .id(valueProvider.nextString())
+                .day(BookingDayEntityTestdata.newBookingDayEntity(valueProvider).build())
                 .startTime(valueProvider.nextLocalTime())
-                .day(BookingDayEntityTestdata.newBookingDayEntity(valueProvider).build());
+                .endTime(valueProvider.nextLocalTime())
+                .durationInMinutes(valueProvider.nextInt())
+                .notes(valueProvider.nextString())
+                .ticket(valueProvider.nextString());
     }
 
 }
