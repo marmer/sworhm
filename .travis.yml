@@ -6,11 +6,7 @@ env:
     - SPRING_DATASOURCE_URL=jdbc:h2:mem:sworhm
     - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/sworhm SPRING_DATASOURCE_PASSWORD=sworhmmpw
 addons:
-  postgresql: "10"
-  apt:
-    packages:
-      - postgresql-10
-      - postgresql-client-10
+  postgresql: "9.6"
   sonarcloud:
     organization: "marmer-github"
     token:
