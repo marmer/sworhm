@@ -18,4 +18,5 @@ public class Booking {
     private final int duration;
     private final String notes;
     private final String ticket;
+    private final String description;
 }

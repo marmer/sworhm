@@ -11,7 +11,8 @@ public class BookingEntityTestdata {
                 .endTime(valueProvider.nextLocalTime())
                 .durationInMinutes(valueProvider.nextInt())
                 .notes(valueProvider.nextString())
-                .ticket(valueProvider.nextString());
+                .ticket(valueProvider.nextString())
+                .description(valueProvider.nextString());
     }
 
 }

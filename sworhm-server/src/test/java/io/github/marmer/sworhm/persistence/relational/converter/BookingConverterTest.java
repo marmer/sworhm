@@ -42,6 +42,7 @@ class BookingConverterTest {
                 .withDuration(entity.getDurationInMinutes())
                 .withNotes(entity.getNotes())
                 .withTicket(entity.getTicket())
+                .withDescription(entity.getDescription())
         );
     }
 }

@@ -27,4 +27,5 @@ public class BookingEntity {
     private int durationInMinutes;
     private String notes;
     private String ticket;
+    private String description;
 }
