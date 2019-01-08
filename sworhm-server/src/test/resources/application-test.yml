@@ -9,4 +9,4 @@ spring:
   datasource:
     url: jdbc:h2:~/sworhm
     username: sworhm
-    password:
+    password: sworhmpw

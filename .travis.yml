@@ -3,10 +3,10 @@ jdk: oraclejdk11
 sudo: false
 env:
   global:
-    - PGPORT=5433
+    - PGPORT=5432
   matrix:
     - SPRING_DATASOURCE_URL=jdbc:h2:file:~/sworhm
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5433/postgres SPRING_DATASOURCE_USERNAME=postgres
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/sworhm
 addons:
   postgresql: "10"
   apt:
@@ -31,5 +31,9 @@ before_install:
 - export PATH=$M2_HOME/bin:$PATH
 install:
 - mvn clean install -DskipTests=true -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -B -V -U
+before_script:
+  - create database sworhm -u postgres
+  - create user sworhm with encrypted password 'sworhmpw' -u postgres
+  - grant all privileges on database sworhm to sworhm -u postgres
 script:
   - mvn org.jacoco:jacoco-maven-plugin:0.8.2:prepare-agent verify sonar:sonar -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -V
