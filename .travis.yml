@@ -4,7 +4,7 @@ sudo: false
 env:
   matrix:
     - SPRING_DATASOURCE_URL=jdbc:h2:file:~/sworhm
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5433/postgres SPRING_DATASOURCE_USERNAME=postgres
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/postgres SPRING_DATASOURCE_USERNAME=postgres
 addons:
   postgresql: "9.6"
   sonarcloud:
