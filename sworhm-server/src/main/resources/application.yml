@@ -9,4 +9,4 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/sworhm
     username: sworhm
-    password:
+    password: sworhmpw
