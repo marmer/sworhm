@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   db:
-    image: postgres:10-alpine
+    image: postgres:11-alpine
     environment:
       POSTGRES_USER: sworhm
       POSTGRES_PASSWORD: sworhmpw
