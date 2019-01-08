@@ -15,9 +15,9 @@ addons:
       secure: "$SONAR_TOKEN"
 cache:
   directories:
-  - "$HOME/.m2/repository"
-  - "$HOME/apache-maven-${MAVEN_VERSION}"
-  - "$HOME/.sonar/cache"
+    - $HOME/.m2
+    - $HOME/apache-maven-${MAVEN_VERSION}
+    - $HOME/.sonar/cache
 before_cache:
 - rm -rfv $HOME/.m2/repository/io/github/marmer
 before_install:
