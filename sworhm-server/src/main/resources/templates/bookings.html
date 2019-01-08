@@ -8,67 +8,72 @@
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" rel="stylesheet">
 </head>
+<!--/*@thymesVar id="currentDay" type="java.time.LocalDate"*/-->
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"><a class="navbar-brand" href="#">Sworhm</a>
-        <button aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
-                data-target="#navbarText" data-toggle="collapse" type="button"><span
-                class="navbar-toggler-icon"></span></button>
-    </nav>
-    <div class="card">
-        <div class="card-header text-center">
-            <!--/*@thymesVar id="currentDay" type="java.time.LocalDate"*/-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"><a class="navbar-brand" href="#">Sworhm</a>
+    <button aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbarText" data-toggle="collapse" type="button"><span
+            class="navbar-toggler-icon"></span></button>
+</nav>
+<div class="card">
+    <div class="card-header text-center">
+        <a href="/day/:2018-12-09/bookings" th:href="'/day/:' + ${currentDay.minusDays(1)} + '/bookings'">
             <button class="btn btn-link button-last-day" title="last" type="button">
-                <a href="/day/:2018-12-09/bookings" th:href="'/day/:' + ${currentDay.minusDays(1)} + '/bookings'">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
+                <i class="fas fa-arrow-left"></i>
             </button>
-            <input id="datepicker" name="bookingDay" onchange="goToBookingsPageFor(this)" th:value="${currentDay}"
-                   type="date"
-                   value="2018-12-10">
+        </a>
+        <input id="datepicker" name="bookingDay" onchange="goToBookingsPageFor(this)" th:value="${currentDay}"
+               type="date"
+               value="2018-12-10">
+        <a href="/day/:2018-12-11/bookings" th:href="'/day/:' + ${currentDay.plusDays(1)} + '/bookings'">
             <button class="btn btn-link button-next-day" title="next" type="button">
-                <a href="/day/:2018-12-11/bookings" th:href="'/day/:' + ${currentDay.plusDays(1)} + '/bookings'">
-                    <i class="fas fa-arrow-right"> </i>
-                </a>
+                <i class="fas fa-arrow-right"> </i>
             </button>
-        </div>
-        <div>
-            <div class="table-responsive-sm">
-                <table class="table table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col">Description</th>
-                        <th scope="col">Start-Time</th>
-                        <th scope="col">End-Time</th>
-                        <th scope="col">Duration</th>
-                        <th scope="col">Notes</th>
-                        <th scope="col">Ticket</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!--/*@thymesVar id="bookings" type="java.util.List"*/-->
-                    <tr th:each="booking : ${bookings}">
-                        <!--/*@thymesVar id="booking" type="io.github.marmer.sworhm.web.ui.dto.BookingDTO"*/-->
-                        <td th:text="${booking.description}">Did a lot of unimportant work
-                        </td>
-                        <td th:text="${booking.startTime}">09:25</td>
-                        <td th:text="${booking.endTime}">10:32</td>
-                        <td th:text="${booking.duration}">01:07</td>
-                        <td th:text="${booking.notes}">got none</td>
-                        <td th:text="${booking.ticket}">SQUIRREL-123</td>
-                        <td>
+        </a>
+    </div>
+    <div class="table-responsive-sm">
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th scope="col">Description</th>
+                <th scope="col">Start-Time</th>
+                <th scope="col">End-Time</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Ticket</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="bookings" type="java.util.List"*/-->
+            <tr th:each="booking : ${bookings}">
+                <!--/*@thymesVar id="booking" type="io.github.marmer.sworhm.web.ui.dto.BookingDTO"*/-->
+                <td th:text="${booking.description}">Did a lot of unimportant work
+                </td>
+                <td th:text="${booking.startTime}">09:25</td>
+                <td th:text="${booking.endTime}">10:32</td>
+                <td th:text="${booking.duration}">01:07</td>
+                <td th:text="${booking.notes}">got none</td>
+                <td th:text="${booking.ticket}">SQUIRREL-123</td>
+                <td>
                             <span class="btn-group">
                                 <button class="btn btn-primary" title="edit" type="button"><i
                                         class="fas fa-edit"></i></button>
                                 <button class="btn btn-danger" title="remove" type="button"><i
                                         class="fas fa-trash-alt"></i></button>
                             </span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-center">
+        <a href="/day/:2018-12-10/bookings/:new" th:href="'/day/:' + ${currentDay} + '/bookings/:new'">
+            <button class="btn btn-primary" title="create new entry" type="button">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </a>
+    </div>
 </div>
 </body>
 <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
