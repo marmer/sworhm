@@ -2,10 +2,12 @@ package io.github.marmer.sworhm.core.model;
 
 import lombok.Builder;
 import lombok.Value;
+import lombok.experimental.Wither;
 
 import java.time.LocalTime;
 
 @Value
+@Wither
 @Builder
 public class Booking {
     private final String id;

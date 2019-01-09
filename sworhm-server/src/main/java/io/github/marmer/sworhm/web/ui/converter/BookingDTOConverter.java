@@ -3,12 +3,14 @@ package io.github.marmer.sworhm.web.ui.converter;
 import io.github.marmer.sworhm.core.Converter;
 import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.web.ui.dto.BookingDTO;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.time.LocalTime;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, unmappedTargetPolicy = ReportingPolicy.ERROR, unmappedSourcePolicy = ReportingPolicy.ERROR)
 public interface BookingDTOConverter extends Converter<Booking, BookingDTO> {
     @Override
     @Mapping(source = "day.day", target = "day")

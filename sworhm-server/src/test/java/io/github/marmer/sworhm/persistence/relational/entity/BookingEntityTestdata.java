@@ -9,7 +9,7 @@ public class BookingEntityTestdata {
                 .day(BookingDayEntityTestdata.newBookingDayEntity(valueProvider).build())
                 .startTime(valueProvider.nextLocalTime())
                 .endTime(valueProvider.nextLocalTime())
-                .durationInMinutes(valueProvider.nextInt())
+                .duration(valueProvider.nextInt())
                 .notes(valueProvider.nextString())
                 .ticket(valueProvider.nextString())
                 .description(valueProvider.nextString());

@@ -39,7 +39,7 @@ class BookingConverterTest {
                         .withDay(entity.getDay().getDay()))
                 .withStartTime(entity.getStartTime())
                 .withEndTime(entity.getEndTime())
-                .withDuration(entity.getDurationInMinutes())
+                .withDuration(entity.getDuration())
                 .withNotes(entity.getNotes())
                 .withTicket(entity.getTicket())
                 .withDescription(entity.getDescription())

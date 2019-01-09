@@ -24,7 +24,7 @@ public class BookingEntity {
     private BookingDayEntity day;
     private LocalTime startTime;
     private LocalTime endTime;
-    private int durationInMinutes;
+    private int duration;
     private String notes;
     private String ticket;
     private String description;
