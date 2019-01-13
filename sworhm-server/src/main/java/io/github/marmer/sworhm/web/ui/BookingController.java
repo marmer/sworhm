@@ -22,7 +22,6 @@ public class BookingController {
     private final BookingDTOConverter bookingDTOConverter;
     private final BookingService bookingService;
 
-
     public BookingController(final SystemTimeService systemTimeService, final BookingDTOConverter bookingDTOConverter, final BookingService bookingService) {
         this.systemTimeService = systemTimeService;
         this.bookingDTOConverter = bookingDTOConverter;
@@ -40,13 +39,13 @@ public class BookingController {
         return getBookingsForDay(today);
     }
 
-    @GetMapping("/day/:{pathDay}/bookings")
-    ModelAndView getBookingsForDay(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate pathDay) {
-        final List<Booking> bookings = bookingService.findBookingsByDay(pathDay);
+    @GetMapping("/day/:{day}/bookings")
+    ModelAndView getBookingsForDay(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate day) {
+        final List<Booking> bookings = bookingService.findBookingsByDay(day);
         final List<BookingDTO> dtos = bookingDTOConverter.convert(bookings);
         final Map<String, Object> model = new HashMap<>();
-        model.put("bookings", bookings);
-        model.put("currentDay", pathDay);
+        model.put("bookings", dtos);
+        model.put("currentDay", day);
         return new ModelAndView("bookings", model);
     }
 
