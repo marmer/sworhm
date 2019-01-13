@@ -6,7 +6,7 @@ import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
 import org.mapstruct.Mapper;
 
-@Mapper(uses = {BookingDayConverter.class}, config = MappingConfiguration.class)
+@Mapper(config = MappingConfiguration.class, uses = {BookingDayConverter.class})
 public interface BookingConverter extends Converter<BookingEntity, Booking> {
 
 
