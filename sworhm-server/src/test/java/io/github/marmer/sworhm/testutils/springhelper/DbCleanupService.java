@@ -1,6 +1,5 @@
 package io.github.marmer.sworhm.testutils.springhelper;
 
-import io.github.marmer.sworhm.persistence.relational.entity.BookingDayEntity;
 import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +15,16 @@ public class DbCleanupService {
 
     @Transactional
     public void clearAll() throws Exception {
-        Stream.of(BookingDayEntity.class,
-                BookingEntity.class)
-                .forEachOrdered(this::deleteAll);
+        Stream.of(
+                BookingEntity.class
+        )
+                .forEach(this::deleteAll);
         entityManager.flush();
 
     }
 
     private void deleteAll(final Class<? extends Object> anEntityClass) {
-        entityManager.createQuery("delete from " + anEntityClass.getName());
+        entityManager.createQuery("delete from " + anEntityClass.getName()).executeUpdate();
     }
 
 }

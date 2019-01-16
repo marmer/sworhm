@@ -1,5 +1,6 @@
 package io.github.marmer.sworhm.persistence.relational.converter;
 
+import io.github.marmer.sworhm.persistence.relational.converter.internal.BookingConverterFromEntity;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,13 +14,13 @@ import static io.github.marmer.sworhm.core.model.BookingMatcher.isBooking;
 import static org.junit.Assert.assertThat;
 
 @SpringBootTest
-class BookingConverterTest {
+class BookingConverterFromEntityFromDTOTest {
     @RegisterExtension
     private final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
     @Inject
-    private BookingConverter bookingConverter;
+    private BookingConverterFromEntity bookingConverterFromEntity;
     @Inject
-    private BookingConverter underTest;
+    private BookingConverterFromEntity underTest;
 
     @Test
     @DisplayName("Simple entity should be converted into model")

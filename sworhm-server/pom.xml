@@ -30,6 +30,7 @@
         <mapstruct.version>1.3.0.Beta2</mapstruct.version>
         <version.hamcrest-matcher-generator>3.2.0</version.hamcrest-matcher-generator>
         <spring.testprofiles>test</spring.testprofiles>
+        <junit-extensions.version>2.3.0</junit-extensions.version>
     </properties>
 
     <dependencies>
@@ -153,6 +154,12 @@
             <groupId>io.github.marmer.testutils</groupId>
             <artifactId>hamcrest-matcher-generator-dependencies</artifactId>
             <version>${version.hamcrest-matcher-generator}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.glytching</groupId>
+            <artifactId>junit-extensions</artifactId>
+            <version>${junit-extensions.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -1,4 +1,4 @@
-package io.github.marmer.sworhm.persistence.relational.converter;
+package io.github.marmer.sworhm.persistence.relational.converter.internal;
 
 import io.github.marmer.sworhm.MappingConfiguration;
 import io.github.marmer.sworhm.core.Converter;

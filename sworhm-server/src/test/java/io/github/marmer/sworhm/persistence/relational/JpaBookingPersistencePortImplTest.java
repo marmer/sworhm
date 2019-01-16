@@ -2,7 +2,8 @@ package io.github.marmer.sworhm.persistence.relational;
 
 import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.model.Testdatagenerator;
-import io.github.marmer.sworhm.persistence.relational.converter.BookingConverter;
+import io.github.marmer.sworhm.persistence.relational.converter.entity.BookingEntityConverter;
+import io.github.marmer.sworhm.persistence.relational.converter.internal.BookingConverterFromEntity;
 import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.persistence.relational.repositories.BookingEntityRepository;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,9 +32,11 @@ class JpaBookingPersistencePortImplTest {
     @Mock
     private BookingEntityRepository bookingEntityRepository;
     @Mock
-    private BookingConverter bookingConverter;
+    private BookingConverterFromEntity bookingConverterFromEntity;
     @InjectMocks
     private JpaBookingPersistencePortImpl underTest;
+    @Mock
+    private BookingEntityConverter bookingEntityConverter;
 
     @Test
     @DisplayName("Should serve existing bookings")
@@ -44,12 +48,34 @@ class JpaBookingPersistencePortImplTest {
         final Booking booking = testdatagenerator.newBooking().build();
 
         when(bookingEntityRepository.findByDayDay(day)).thenReturn(singletonList(bookingEntity));
-        when(bookingConverter.convert(singletonList(bookingEntity))).thenReturn(singletonList(booking));
+        when(bookingConverterFromEntity.convert(singletonList(bookingEntity))).thenReturn(singletonList(booking));
 
         // Execution
         final var result = underTest.findBookingsByDay(day);
 
         // Assertion
         assertThat(result, contains(booking));
+    }
+
+    @Test
+    @DisplayName("should store the given booking")
+    void testStoreBooking_ShouldStoreTheGivenBooking()
+            throws Exception {
+        // Preparation
+        final Booking bookingToStore = testdatagenerator.newBooking().build();
+        final BookingEntity bookingEntityToStore = testdatageneratorPersistence.newBookingEntity().build();
+        final BookingEntity storedBookingEntity = testdatageneratorPersistence.newBookingEntity().build();
+        final Booking storedBooking = testdatagenerator.newBooking().build();
+
+        when(bookingEntityConverter.convert(bookingToStore)).thenReturn(bookingEntityToStore);
+        when(bookingEntityRepository.save(bookingEntityToStore)).thenReturn(storedBookingEntity);
+        when(bookingConverterFromEntity.convert(storedBookingEntity)).thenReturn(storedBooking);
+
+
+        // Execution
+        final var result = underTest.storeBooking(bookingToStore);
+
+        // Assertion
+        assertThat(result, is(storedBooking));
     }
 }

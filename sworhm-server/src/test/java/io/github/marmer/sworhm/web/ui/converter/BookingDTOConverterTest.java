@@ -1,6 +1,7 @@
 package io.github.marmer.sworhm.web.ui.converter;
 
 import io.github.marmer.sworhm.model.Testdatagenerator;
+import io.github.marmer.sworhm.web.ui.converter.dto.BookingDTOConverter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
