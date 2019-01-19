@@ -1,16 +1,16 @@
 package io.github.marmer.sworhm.testutils.springhelper;
 
 import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import java.util.stream.Stream;
 
-@Service
+@Named
 public class DbCleanupService {
-    @Autowired
+    @Inject
     private EntityManager entityManager;
 
     @Transactional

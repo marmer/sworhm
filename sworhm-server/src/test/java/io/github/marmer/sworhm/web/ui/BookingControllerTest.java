@@ -54,7 +54,7 @@ class BookingControllerTest {
         final String result = underTest.getDefaultBookingPage();
 
         // Assertion
-        assertThat(result, is("redirect:/day/:today/bookings"));
+        assertThat(result, is("redirect:/days/:today/bookings"));
     }
 
     @Test

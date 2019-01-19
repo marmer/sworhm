@@ -34,16 +34,16 @@ public class BookingController {
 
     @GetMapping("/bookings")
     String getDefaultBookingPage() {
-        return "redirect:/day/:today/bookings";
+        return "redirect:/days/:today/bookings";
     }
 
-    @GetMapping("/day/:today/bookings")
+    @GetMapping("/days/:today/bookings")
     ModelAndView getTodaysBookingPage() {
         final LocalDate today = systemTimeService.now().toLocalDate();
         return getBookingsForDay(today);
     }
 
-    @GetMapping("/day/:{day}/bookings")
+    @GetMapping("/days/:{day}/bookings")
     ModelAndView getBookingsForDay(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate day) {
         final List<Booking> bookings = bookingService.findBookingsByDay(day);
         final List<BookingDTO> dtos = bookings.stream().map(bookingDTOConverter::convert).collect(Collectors.toList());
@@ -53,7 +53,7 @@ public class BookingController {
         return new ModelAndView("bookings", model);
     }
 
-    @PostMapping("/day/:{pathDay}/bookings")
+    @PostMapping("/days/:{pathDay}/bookings")
     ModelAndView addBooking(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate pathDay, @ModelAttribute final BookingDTO dto) {
         final Booking booking = bookingConverterFromDTO.convert(dto, pathDay);
         bookingService.storeBooking(booking);

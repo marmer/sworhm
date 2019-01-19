@@ -51,7 +51,7 @@ class BookingsLoadIT {
         final ResultActions result = mockMvc.perform(get("/bookings"));
 
         // Assertion
-        result.andExpect(redirectedUrl("/day/:today/bookings"));
+        result.andExpect(redirectedUrl("/days/:today/bookings"));
     }
 
     @Test
@@ -78,7 +78,7 @@ class BookingsLoadIT {
         transactionlessTestEntityManager.persistAndGetId(yesterdaysBookingEntity);
 
         // Execution
-        final ResultActions result = mockMvc.perform(get("/day/:today/bookings"));
+        final ResultActions result = mockMvc.perform(get("/days/:today/bookings"));
 
         // Assertion
         result.andExpect(model().attribute("bookings",

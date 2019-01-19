@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RootController {
     @GetMapping
     String getDefaultSite() {
-        return "redirect:/day/:today/bookings";
+        return "redirect:/days/:today/bookings";
     }
 }

@@ -53,7 +53,7 @@ class BookingsStoreIT {
     void testTestMethodName_BookingEntityPostShouldBeStoredWithDayOfPath()
             throws Exception {
         // Execution
-        final ResultActions result = mockMvc.perform(post("/day/:{pathDay}/bookings", "2018-05-03")
+        final ResultActions result = mockMvc.perform(post("/days/:{pathDay}/bookings", "2018-05-03")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("description", "funky description"));
 

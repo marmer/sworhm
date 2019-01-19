@@ -17,7 +17,7 @@
 </nav>
 <div class="card">
     <div class="card-header text-center">
-        <a href="/day/:2018-12-09/bookings" th:href="'/day/:' + ${currentDay.minusDays(1)} + '/bookings'">
+        <a href="/days/:2018-12-09/bookings" th:href="'/days/:' + ${currentDay.minusDays(1)} + '/bookings'">
             <button class="btn btn-link button-last-day" title="last" type="button">
                 <i class="fas fa-arrow-left"></i>
             </button>
@@ -25,7 +25,7 @@
         <input id="datepicker" name="bookingDay" onchange="goToBookingsPageFor(this)" th:value="${currentDay}"
                type="date"
                value="2018-12-10">
-        <a href="/day/:2018-12-11/bookings" th:href="'/day/:' + ${currentDay.plusDays(1)} + '/bookings'">
+        <a href="/days/:2018-12-11/bookings" th:href="'/days/:' + ${currentDay.plusDays(1)} + '/bookings'">
             <button class="btn btn-link button-next-day" title="next" type="button">
                 <i class="fas fa-arrow-right"> </i>
             </button>
@@ -58,7 +58,7 @@
                 <td>
                     <span class="btn-group">
                         <button class="btn btn-primary"
-                                th:onclick="window.location.href='/day/:' + [[${booking.day}]] + '/bookings/' + [[${booking.id}]]"
+                                th:onclick="window.location.href='/days/:' + [[${booking.day}]] + '/bookings/' + [[${booking.id}]]"
                                 title="edit"
                                 type="button">
                             <i class="fas fa-edit"></i></button>
@@ -76,7 +76,7 @@
     </div>
     <div class="card-footer text-center">
         <!--/*@thymesVar id="newBooking" type="io.github.marmer.sworhm.web.ui.dto.BookingDTO"*/-->
-        <form action="#" method="post" th:action="'/day/:' + ${currentDay} + '/bookings'">
+        <form action="#" method="post" th:action="'/days/:' + ${currentDay} + '/bookings'">
             <p>day: <input name="day" type="date"/></p>
             <p>startTime: <input name="startTime" type="time"/></p>
             <p>endTime: <input name="endTime" type="time"/></p>
@@ -101,17 +101,18 @@
 <script>
     // TODO: replace this temporary javascript solutions
     function goToBookingsPageFor(element) {
-        window.location.href = '/day/:' + element.value + '/bookings';
+        window.location.href = '/days/:' + element.value + '/bookings';
     }
 
     function removeAndReloadBooking(day, bookingId) {
-        fetch("/day/:" + day + "/bookings/" + bookingId, {
-            method: 'delete'
-        }).finally(reload);
+        var xhr1 = new XMLHttpRequest();
+        xhr1.open('DELETE', "/api/v1/days/:" + day + "/bookings/" + bookingId, true);
+        xhr1.onreadystatechange = reload;
+        xhr1.send();
     }
 
     function reload() {
-        window.open(window.location.href);
+        window.open(window.location.href, "_self");
     }
 </script>
 </html>

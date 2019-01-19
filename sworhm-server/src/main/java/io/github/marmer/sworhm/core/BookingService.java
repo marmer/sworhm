@@ -24,4 +24,11 @@ public interface BookingService {
      * @return Bookings of the day
      */
     List<Booking> findBookingsByDay(LocalDate day);
+
+    /**
+     * Deletes a booking by its ID.
+     *
+     * @param bookingId Idof the booking to delete
+     */
+    void deleteBooking(String bookingId);
 }

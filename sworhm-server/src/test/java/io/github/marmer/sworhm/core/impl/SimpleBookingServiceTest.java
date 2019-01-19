@@ -3,6 +3,7 @@ package io.github.marmer.sworhm.core.impl;
 import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.core.persistence.BookingPersistencePort;
 import io.github.marmer.sworhm.model.Testdatagenerator;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -18,6 +19,7 @@ import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,6 +34,7 @@ class SimpleBookingServiceTest {
     private BookingPersistencePort bookingPersistencePort;
 
     @Test
+    @DisplayName("Should return persisted version of the persisted booking")
     public void testStoreBooking_BookingGiven_ShouldServePersistedVersion()
             throws Exception {
         // Preparation
@@ -47,6 +50,7 @@ class SimpleBookingServiceTest {
     }
 
     @Test
+    @DisplayName("Should return existing booking")
     public void testFindBookingsByDay_BookingsExistForDay_ShouldReturnBookings()
             throws Exception {
         // Preparation
@@ -60,4 +64,19 @@ class SimpleBookingServiceTest {
         // Assertion
         assertThat(result, contains(booking));
     }
+
+    @Test
+    @DisplayName("Shuold delete booking")
+    void testDeleteBooking_ShuoldDeleteBooking()
+            throws Exception {
+        // Preparation
+        final String bookingId = "42";
+
+        // Execution
+        underTest.deleteBooking(bookingId);
+
+        // Assertion
+        verify(bookingPersistencePort).deleteBooking(bookingId);
+    }
+
 }

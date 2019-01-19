@@ -34,4 +34,9 @@ public class JpaBookingPersistencePortImpl implements BookingPersistencePort {
     public List<Booking> findBookingsByDay(final LocalDate day) {
         return bookingConverterFromEntity.convert(bookingEntityRepository.findByDayDay(day));
     }
+
+    @Override
+    public void deleteBooking(final String bookingId) {
+        bookingEntityRepository.deleteById(bookingId);
+    }
 }

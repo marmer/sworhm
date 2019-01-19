@@ -79,4 +79,8 @@ public class TransactionlessTestEntityManager {
     public <T> List<T> findAllOf(final Class<T> type) {
         return getEntityManager().createQuery("SELECT t FROM " + type.getSimpleName() + " t").getResultList();
     }
+
+    public void doTransactional(final Runnable runnable) {
+        runnable.run();
+    }
 }

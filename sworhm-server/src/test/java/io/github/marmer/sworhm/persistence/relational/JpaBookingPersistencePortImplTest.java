@@ -21,6 +21,7 @@ import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -77,5 +78,19 @@ class JpaBookingPersistencePortImplTest {
 
         // Assertion
         assertThat(result, is(storedBooking));
+    }
+
+    @Test
+    @DisplayName("should delete existing booking")
+    void testDeleteBooking_ShouldDeleteExistingBooking()
+            throws Exception {
+        // Preparation
+        final String bookingId = "0815";
+
+        // Execution
+        underTest.deleteBooking(bookingId);
+
+        // Assertion
+        verify(bookingEntityRepository).deleteById(bookingId);
     }
 }
