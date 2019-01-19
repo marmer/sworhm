@@ -1,12 +1,21 @@
 package io.github.marmer.sworhm.web.ui.dto;
 
+import io.github.benas.randombeans.EnhancedRandomBuilder;
+import io.github.benas.randombeans.api.EnhancedRandom;
 import io.github.marmer.sworhm.testutils.testdata.junit5.TestdatageneratorBaseJUnit5;
+import lombok.Getter;
+
+import static io.github.benas.randombeans.FieldDefinitionBuilder.field;
 
 public class TestdatageneratorWebUiDTO extends TestdatageneratorBaseJUnit5 {
-    public BookingDTO newBookingDTO() {
-        // TODO: marmer 16.01.2019 Try to replace the testdata classes with a preconfigured io.github.benas.randombeans.EnhancedRandomBuilder.
-        //  The "seed" should be the most important part and don't forget to ignore "id" and "version" fields somehow
+    @Getter
+    private final EnhancedRandom random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
+            .seed(getClass().getName().hashCode())
+            .exclude(field().named("id").ofType(String.class).get())
+            .exclude(field().named("version").ofType(Long.class).get())
+            .build();
 
-        return BookingDTOTestdata.newBookingDTO(getValueProvider());
+    public BookingDTO newBookingDTO() {
+        return random.nextObject(BookingDTO.class);
     }
 }

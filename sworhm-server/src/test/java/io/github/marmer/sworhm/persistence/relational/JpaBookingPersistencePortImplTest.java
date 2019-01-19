@@ -49,7 +49,7 @@ class JpaBookingPersistencePortImplTest {
     void testFindBookingsByDay_ShouldServeExistingBookings()
             throws Exception {
         // Preparation
-        final LocalDate day = testdatageneratorPersistence.getValueProvider().nextLocalDate();
+        final LocalDate day = testdatageneratorPersistence.getRandom().nextObject(LocalDate.class);
         final BookingEntity bookingEntity = testdatageneratorPersistence.newBookingEntity().build();
         final Booking booking = testdatagenerator.newBooking().build();
 

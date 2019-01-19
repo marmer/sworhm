@@ -15,6 +15,7 @@ public class BookingDTO {
     private LocalTime startTime;
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime endTime;
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime duration;
     private String notes;
     private String ticket;

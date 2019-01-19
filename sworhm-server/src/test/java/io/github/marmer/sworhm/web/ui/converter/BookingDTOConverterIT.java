@@ -14,7 +14,7 @@ import static io.github.marmer.sworhm.web.ui.dto.BookingDTOMatcher.isBookingDTO;
 import static org.junit.Assert.assertThat;
 
 @SpringBootTest
-class BookingDTOConverterTest {
+class BookingDTOConverterIT {
     @RegisterExtension
     private final Testdatagenerator testdatagenerator = new Testdatagenerator();
     @Inject

@@ -15,6 +15,8 @@ public interface BookingDTOConverter {
     BookingDTO convert(Booking source);
 
     default LocalTime minutesToTime(final int minutes) {
-        return LocalTime.of(minutes / 60, minutes % 60);
+        final int max = 60 * 24 - 1;
+        final int cutMinutes = Math.abs(minutes) > max ? max : Math.abs(minutes);
+        return LocalTime.of(cutMinutes / 60, cutMinutes % 60);
     }
 }

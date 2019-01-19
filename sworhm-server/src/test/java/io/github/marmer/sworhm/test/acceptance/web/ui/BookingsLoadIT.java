@@ -59,9 +59,8 @@ class BookingsLoadIT {
     void testGetTodaysBookingsPage_RequestForTodaysBookingShouldServeBookingsOfTodayOnly()
             throws Exception {
         // Preparation
-        final LocalDateTime now = LocalDateTime.of(2002, 1, 2, 15, 30);
         final LocalDate today = LocalDate.of(2002, 1, 2);
-        when(systemTimeService.now()).thenReturn(now);
+        when(systemTimeService.now()).thenReturn(LocalDateTime.of(2002, 1, 2, 15, 30));
         final BookingEntity yesterdaysBookingEntity = testdatageneratorPersistence.newBookingEntity()
                 .day(testdatageneratorPersistence.newBookingDayEntity()
                         .day(today.minusDays(1)).build()).build();

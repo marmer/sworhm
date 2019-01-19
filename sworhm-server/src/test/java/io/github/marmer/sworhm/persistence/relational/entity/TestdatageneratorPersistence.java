@@ -1,13 +1,24 @@
 package io.github.marmer.sworhm.persistence.relational.entity;
 
-import io.github.marmer.sworhm.testutils.testdata.junit5.TestdatageneratorBaseJUnit5;
+import io.github.benas.randombeans.EnhancedRandomBuilder;
+import io.github.benas.randombeans.api.EnhancedRandom;
+import lombok.Getter;
 
-public class TestdatageneratorPersistence extends TestdatageneratorBaseJUnit5 {
+import static io.github.benas.randombeans.FieldDefinitionBuilder.field;
+
+public class TestdatageneratorPersistence {
+    @Getter
+    private final EnhancedRandom random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
+            .seed(getClass().getName().hashCode())
+            .exclude(field().named("id").ofType(String.class).get())
+            .exclude(field().named("version").ofType(Long.class).get())
+            .build();
     public BookingEntity.BookingEntityBuilder newBookingEntity() {
-        return BookingEntityTestdata.newBookingEntity(getValueProvider());
+        return random.nextObject(BookingEntity.BookingEntityBuilder.class);
     }
 
     public BookingDayEntity.BookingDayEntityBuilder newBookingDayEntity() {
-        return BookingDayEntityTestdata.newBookingDayEntity(getValueProvider());
+        return random.nextObject(BookingDayEntity.BookingDayEntityBuilder.class);
     }
+
 }
