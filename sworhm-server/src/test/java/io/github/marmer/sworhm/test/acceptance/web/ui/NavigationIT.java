@@ -1,12 +1,10 @@
-package io.github.marmer.sworhm.test.acceptance;
+package io.github.marmer.sworhm.test.acceptance.web.ui;
 
 import io.github.marmer.sworhm.web.ui.RootController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -18,15 +16,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class RootControllerIT {
+class NavigationIT {
     @Inject
     private RootController underTest;
     @Inject
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("Rootcall should redirect to bookings default page")
-    void testGetRoot_RootcallShouldRedirectToBookingsDefaultPage()
+    @DisplayName("Rootcall should redirect to bookings today page")
+    void testGetRoot_RootcallShouldRedirectToBookingsTodayPage()
             throws Exception {
         // Preparation
 

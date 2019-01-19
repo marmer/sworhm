@@ -1,4 +1,4 @@
-package io.github.marmer.sworhm.test.acceptance;
+package io.github.marmer.sworhm.test.acceptance.web.ui;
 
 import io.github.marmer.sworhm.core.SystemTimeService;
 import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
