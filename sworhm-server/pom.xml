@@ -184,6 +184,14 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.github.glytching</groupId>
+                        <artifactId>junit-extensions</artifactId>
+                        <version>${junit-extensions.version}</version>
+                        <scope>test</scope>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
