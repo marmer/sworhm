@@ -16,14 +16,12 @@ public interface BookingConverterFromDTO {
     @Mapping(source = "duration", target = "duration", qualifiedByName = "localDateToDurationInMinutes")
     Booking convert(final BookingDTO bookingDTOToStore, @Context final LocalDate day);
 
-    // TODO: marmer 17.01.2019 test me!
     default int localDateToDurationInMinutes(final LocalTime localTime) {
         return localTime == null ?
                 0 :
                 localTime.getHour() * 60 + localTime.getMinute();
     }
 
-    // TODO: marmer 17.01.2019 test me!
     @AfterMapping
     default void setDayOfContent(@MappingTarget final BookingDay.BookingDayBuilder bookingDay, @Context final LocalDate day) {
         bookingDay.day(day);
