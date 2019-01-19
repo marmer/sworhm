@@ -4,12 +4,11 @@ import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.core.model.BookingDay;
-import io.github.marmer.sworhm.testutils.testdata.junit5.TestdatageneratorBaseJUnit5;
 import lombok.Getter;
 
 import static io.github.benas.randombeans.FieldDefinitionBuilder.field;
 
-public class Testdatagenerator extends TestdatageneratorBaseJUnit5 {
+public class Testdatagenerator {
     @Getter
     private final EnhancedRandom random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
             .seed(getClass().getName().hashCode())
