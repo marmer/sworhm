@@ -17,7 +17,7 @@
 </nav>
 <div class="card">
     <div class="card-header text-center">
-        <a href="/days/:2018-12-09/bookings" th:href="'/days/:' + ${currentDay.minusDays(1)} + '/bookings'">
+        <a href="/days/:2018-12-09/bookings" th:href="@{'/days/:' + ${currentDay.minusDays(1)} + '/bookings'}">
             <button class="btn btn-link button-last-day" title="last" type="button">
                 <i class="fas fa-arrow-left"></i>
             </button>
@@ -25,7 +25,7 @@
         <input id="datepicker" name="bookingDay" onchange="goToBookingsPageFor(this)" th:value="${currentDay}"
                type="date"
                value="2018-12-10">
-        <a href="/days/:2018-12-11/bookings" th:href="'/days/:' + ${currentDay.plusDays(1)} + '/bookings'">
+        <a href="/days/:2018-12-11/bookings" th:href="@{'/days/:' + ${currentDay.plusDays(1)} + '/bookings'}">
             <button class="btn btn-link button-next-day" title="next" type="button">
                 <i class="fas fa-arrow-right"> </i>
             </button>
@@ -76,7 +76,7 @@
     </div>
     <div class="card-footer text-center">
         <!--/*@thymesVar id="newBooking" type="io.github.marmer.sworhm.web.ui.dto.BookingDTO"*/-->
-        <form action="#" method="post" th:action="'/days/:' + ${currentDay} + '/bookings'">
+        <form action="#" method="post" th:action="@{'/days/:' + ${currentDay} + '/bookings'}">
             <p>day: <input name="day" type="date"/></p>
             <p>startTime: <input name="startTime" type="time"/></p>
             <p>endTime: <input name="endTime" type="time"/></p>
