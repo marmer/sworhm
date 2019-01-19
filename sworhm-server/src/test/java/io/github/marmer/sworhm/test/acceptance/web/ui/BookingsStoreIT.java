@@ -1,6 +1,7 @@
 package io.github.marmer.sworhm.test.acceptance.web.ui;
 
 import io.github.marmer.sworhm.core.SystemTimeService;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDayEntity;
 import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.testutils.springhelper.DbCleanupService;
@@ -39,7 +40,7 @@ class BookingsStoreIT {
     @SpyBean
     private SystemTimeService systemTimeService;
     @Inject
-    private TransactionlessTestEntityManager transactionlessTestEntityManager;
+    private TransactionlessTestEntityManager em;
     @Inject
     private DbCleanupService dbCleanupService;
 
@@ -49,8 +50,8 @@ class BookingsStoreIT {
     }
 
     @Test
-    @DisplayName("Booking entity post should be stored with day of Pat")
-    void testTestMethodName_BookingEntityPostShouldBeStoredWithDayOfPath()
+    @DisplayName("Should store new booking")
+    void testPostBooking_ShouldStoreNewBooking()
             throws Exception {
         // Execution
         final ResultActions result = mockMvc.perform(post("/days/:{pathDay}/bookings", "2018-05-03")
@@ -65,10 +66,38 @@ class BookingsStoreIT {
                                 .withDescription("funky description")
                                 .withDay(LocalDate.of(2018, 5, 3)))));
 
-        final List<BookingEntity> dbBookings = transactionlessTestEntityManager.findAllOf(BookingEntity.class);
+        final List<BookingEntity> dbBookings = em.findAllOf(BookingEntity.class);
         Assert.assertThat(dbBookings, contains(isBookingEntity()
                 .withDay(isBookingDayEntity()
                         .withDay(LocalDate.of(2018, 5, 3)))
+                .withDescription("funky description")));
+    }
+
+    @Test
+    @DisplayName("Previously created days are reused")
+    void testPostBooking_PreviouslyCreatedDaysAreReused()
+            throws Exception {
+        // Preparation
+        final BookingDayEntity oldDay = em.persistAndFlush(testdatageneratorPersistence.newBookingDayEntity()
+                .day(LocalDate.of(2018, 5, 3))
+                .build());
+
+        // Execution
+        final ResultActions result = mockMvc.perform(post("/days/:{pathDay}/bookings", "2018-05-03")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("description", "funky description"));
+
+        // Assertions
+        result.andExpect(status().isOk())
+                .andExpect(view().name("bookings"))
+                .andExpect(model().attribute("bookings",
+                        contains(isBookingDTO()
+                                .withDescription("funky description")
+                                .withDay(LocalDate.of(2018, 5, 3)))));
+
+        final List<BookingEntity> dbBookings = em.findAllOf(BookingEntity.class);
+        Assert.assertThat(dbBookings, contains(isBookingEntity()
+                .withDay(oldDay)
                 .withDescription("funky description")));
     }
 

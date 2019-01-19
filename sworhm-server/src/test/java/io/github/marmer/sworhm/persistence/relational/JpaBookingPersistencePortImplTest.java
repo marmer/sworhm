@@ -4,8 +4,10 @@ import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.model.Testdatagenerator;
 import io.github.marmer.sworhm.persistence.relational.converter.entity.BookingEntityConverter;
 import io.github.marmer.sworhm.persistence.relational.converter.internal.BookingConverterFromEntity;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDayEntity;
 import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
+import io.github.marmer.sworhm.persistence.relational.repositories.BookingDayEntityRepository;
 import io.github.marmer.sworhm.persistence.relational.repositories.BookingEntityRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -38,6 +41,8 @@ class JpaBookingPersistencePortImplTest {
     private JpaBookingPersistencePortImpl underTest;
     @Mock
     private BookingEntityConverter bookingEntityConverter;
+    @Mock
+    private BookingDayEntityRepository bookingDayEntityRepository;
 
     @Test
     @DisplayName("Should serve existing bookings")
@@ -72,6 +77,35 @@ class JpaBookingPersistencePortImplTest {
         when(bookingEntityRepository.save(bookingEntityToStore)).thenReturn(storedBookingEntity);
         when(bookingConverterFromEntity.convert(storedBookingEntity)).thenReturn(storedBooking);
 
+
+        // Execution
+        final var result = underTest.storeBooking(bookingToStore);
+
+        // Assertion
+        assertThat(result, is(storedBooking));
+    }
+
+    @Test
+    @DisplayName("should reuse old booking days")
+    void testStoreBooking_ShouldReuseOldBookingDays()
+            throws Exception {
+        // Preparation
+        final LocalDate day = LocalDate.of(2017, 8, 9);
+        final Booking bookingToStore = testdatagenerator.newBooking()
+                .day(testdatagenerator.newBookingDay()
+                        .day(day)
+                        .build())
+                .build();
+        final BookingEntity.BookingEntityBuilder bookingEntityToStoreTemplate = testdatageneratorPersistence.newBookingEntity();
+        final BookingEntity bookingEntityToStore = bookingEntityToStoreTemplate.build();
+        final BookingEntity storedBookingEntity = testdatageneratorPersistence.newBookingEntity().build();
+        final Booking storedBooking = testdatagenerator.newBooking().build();
+        final BookingDayEntity oldBookingDay = testdatageneratorPersistence.newBookingDayEntity().build();
+
+        when(bookingEntityConverter.convert(bookingToStore)).thenReturn(bookingEntityToStore);
+        when(bookingDayEntityRepository.findByDay(day)).thenReturn(Optional.of(oldBookingDay));
+        when(bookingEntityRepository.save(bookingEntityToStoreTemplate.day(oldBookingDay).build())).thenReturn(storedBookingEntity);
+        when(bookingConverterFromEntity.convert(storedBookingEntity)).thenReturn(storedBooking);
 
         // Execution
         final var result = underTest.storeBooking(bookingToStore);
