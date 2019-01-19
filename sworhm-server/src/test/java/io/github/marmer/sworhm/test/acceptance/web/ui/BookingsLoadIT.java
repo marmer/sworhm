@@ -86,4 +86,36 @@ class BookingsLoadIT {
                         .withId(todaysBookingEntity.getId()))))
                 .andExpect(view().name("bookings"));
     }
+
+    @Test
+    @DisplayName("Request for any days booking should serve Bookings of Today only")
+    void testGetTodaysBookingsPage_RequestForAnyDaysBookingShouldServeBookingsOfTodayOnly()
+            throws Exception {
+        // Preparation
+        final LocalDate anyDay = LocalDate.of(2002, 1, 2);
+        final BookingEntity yesterdaysBookingEntity = testdatageneratorPersistence.newBookingEntity()
+                .day(testdatageneratorPersistence.newBookingDayEntity()
+                        .day(anyDay.minusDays(1)).build()).build();
+        final BookingEntity todaysBookingEntity = testdatageneratorPersistence.newBookingEntity()
+                .day(testdatageneratorPersistence.newBookingDayEntity()
+                        .day(anyDay).build()).build();
+        final BookingEntity tomorrowsBookingEntity = testdatageneratorPersistence.newBookingEntity()
+                .day(testdatageneratorPersistence.newBookingDayEntity()
+                        .day(anyDay.plusDays(1)).build()).build();
+
+        dbCleanupService.clearAll();
+        transactionlessTestEntityManager.persistAndGetId(todaysBookingEntity);
+        transactionlessTestEntityManager.persistAndGetId(tomorrowsBookingEntity);
+        transactionlessTestEntityManager.persistAndGetId(yesterdaysBookingEntity);
+
+        // Execution
+        final ResultActions result = mockMvc.perform(get("/days/:2002-01-02/bookings"));
+
+        // Assertion
+        result.andExpect(model().attribute("bookings",
+                contains(isBookingDTO()
+                        .withStartTime(todaysBookingEntity.getStartTime())
+                        .withId(todaysBookingEntity.getId()))))
+                .andExpect(view().name("bookings"));
+    }
 }
