@@ -25,7 +25,7 @@ public class DbCleanupService {
 
     }
 
-    private void deleteAll(final Class<? extends Object> anEntityClass) {
+    private void deleteAll(final Class<?> anEntityClass) {
         entityManager.createQuery("delete from " + anEntityClass.getName()).executeUpdate();
     }
 
