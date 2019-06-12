@@ -15,7 +15,7 @@ public class DbCleanupService {
     private EntityManager entityManager;
 
     @Transactional
-    public void clearAll() throws Exception {
+    public void clearAll() {
         Stream.of(
                 BookingDbo.class,
                 BookingDayDbo.class
