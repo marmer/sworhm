@@ -15,13 +15,13 @@ import java.time.LocalTime;
 @Builder
 @Entity
 @Table(name = "BOOKING")
-public class BookingEntity {
+public class BookingDbo {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private BookingDayEntity day;
+    private BookingDayDbo day;
     private LocalTime startTime;
     private LocalTime endTime;
     private int duration;

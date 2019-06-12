@@ -13,12 +13,13 @@ public class TestdatageneratorPersistence {
             .exclude(field().named("id").ofType(String.class).get())
             .exclude(field().named("version").ofType(Long.class).get())
             .build();
-    public BookingEntity.BookingEntityBuilder newBookingEntity() {
-        return random.nextObject(BookingEntity.BookingEntityBuilder.class);
+
+    public BookingDbo.BookingDboBuilder newBookingEntity() {
+        return random.nextObject(BookingDbo.BookingDboBuilder.class);
     }
 
-    public BookingDayEntity.BookingDayEntityBuilder newBookingDayEntity() {
-        return random.nextObject(BookingDayEntity.BookingDayEntityBuilder.class);
+    public BookingDayDbo.BookingDayDboBuilder newBookingDayEntity() {
+        return random.nextObject(BookingDayDbo.BookingDayDboBuilder.class);
     }
 
 }

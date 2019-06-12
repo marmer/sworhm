@@ -1,7 +1,7 @@
 package io.github.marmer.sworhm.test.acceptance.web.ui;
 
 import io.github.marmer.sworhm.core.SystemTimeService;
-import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.testutils.springhelper.DbCleanupService;
 import io.github.marmer.sworhm.testutils.springhelper.TransactionlessTestEntityManager;
@@ -61,20 +61,20 @@ class BookingsLoadIT {
         // Preparation
         final LocalDate today = LocalDate.of(2002, 1, 2);
         when(systemTimeService.now()).thenReturn(LocalDateTime.of(2002, 1, 2, 15, 30));
-        final BookingEntity yesterdaysBookingEntity = testdatageneratorPersistence.newBookingEntity()
+        final BookingDbo yesterdaysBookingDbo = testdatageneratorPersistence.newBookingEntity()
                 .day(testdatageneratorPersistence.newBookingDayEntity()
                         .day(today.minusDays(1)).build()).build();
-        final BookingEntity todaysBookingEntity = testdatageneratorPersistence.newBookingEntity()
+        final BookingDbo todaysBookingDbo = testdatageneratorPersistence.newBookingEntity()
                 .day(testdatageneratorPersistence.newBookingDayEntity()
                         .day(today).build()).build();
-        final BookingEntity tomorrowsBookingEntity = testdatageneratorPersistence.newBookingEntity()
+        final BookingDbo tomorrowsBookingDbo = testdatageneratorPersistence.newBookingEntity()
                 .day(testdatageneratorPersistence.newBookingDayEntity()
                         .day(today.plusDays(1)).build()).build();
 
         dbCleanupService.clearAll();
-        transactionlessTestEntityManager.persistAndGetId(todaysBookingEntity);
-        transactionlessTestEntityManager.persistAndGetId(tomorrowsBookingEntity);
-        transactionlessTestEntityManager.persistAndGetId(yesterdaysBookingEntity);
+        transactionlessTestEntityManager.persistAndGetId(todaysBookingDbo);
+        transactionlessTestEntityManager.persistAndGetId(tomorrowsBookingDbo);
+        transactionlessTestEntityManager.persistAndGetId(yesterdaysBookingDbo);
 
         // Execution
         final ResultActions result = mockMvc.perform(get("/days/:today/bookings"));
@@ -82,8 +82,8 @@ class BookingsLoadIT {
         // Assertion
         result.andExpect(model().attribute("bookings",
                 contains(isBookingDTO()
-                        .withStartTime(todaysBookingEntity.getStartTime())
-                        .withId(todaysBookingEntity.getId()))))
+                        .withStartTime(todaysBookingDbo.getStartTime())
+                        .withId(todaysBookingDbo.getId()))))
                 .andExpect(view().name("bookings"));
     }
 
@@ -93,20 +93,20 @@ class BookingsLoadIT {
             throws Exception {
         // Preparation
         final LocalDate anyDay = LocalDate.of(2002, 1, 2);
-        final BookingEntity yesterdaysBookingEntity = testdatageneratorPersistence.newBookingEntity()
+        final BookingDbo yesterdaysBookingDbo = testdatageneratorPersistence.newBookingEntity()
                 .day(testdatageneratorPersistence.newBookingDayEntity()
                         .day(anyDay.minusDays(1)).build()).build();
-        final BookingEntity todaysBookingEntity = testdatageneratorPersistence.newBookingEntity()
+        final BookingDbo todaysBookingDbo = testdatageneratorPersistence.newBookingEntity()
                 .day(testdatageneratorPersistence.newBookingDayEntity()
                         .day(anyDay).build()).build();
-        final BookingEntity tomorrowsBookingEntity = testdatageneratorPersistence.newBookingEntity()
+        final BookingDbo tomorrowsBookingDbo = testdatageneratorPersistence.newBookingEntity()
                 .day(testdatageneratorPersistence.newBookingDayEntity()
                         .day(anyDay.plusDays(1)).build()).build();
 
         dbCleanupService.clearAll();
-        transactionlessTestEntityManager.persistAndGetId(todaysBookingEntity);
-        transactionlessTestEntityManager.persistAndGetId(tomorrowsBookingEntity);
-        transactionlessTestEntityManager.persistAndGetId(yesterdaysBookingEntity);
+        transactionlessTestEntityManager.persistAndGetId(todaysBookingDbo);
+        transactionlessTestEntityManager.persistAndGetId(tomorrowsBookingDbo);
+        transactionlessTestEntityManager.persistAndGetId(yesterdaysBookingDbo);
 
         // Execution
         final ResultActions result = mockMvc.perform(get("/days/:2002-01-02/bookings"));
@@ -114,8 +114,8 @@ class BookingsLoadIT {
         // Assertion
         result.andExpect(model().attribute("bookings",
                 contains(isBookingDTO()
-                        .withStartTime(todaysBookingEntity.getStartTime())
-                        .withId(todaysBookingEntity.getId()))))
+                        .withStartTime(todaysBookingDbo.getStartTime())
+                        .withId(todaysBookingDbo.getId()))))
                 .andExpect(view().name("bookings"));
     }
 }

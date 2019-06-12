@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "BOOKING_DAY")
-public class BookingDayEntity {
+public class BookingDayDbo {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")

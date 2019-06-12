@@ -4,8 +4,8 @@ import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.model.Testdatagenerator;
 import io.github.marmer.sworhm.persistence.relational.converter.entity.BookingEntityConverter;
 import io.github.marmer.sworhm.persistence.relational.converter.internal.BookingConverterFromEntity;
-import io.github.marmer.sworhm.persistence.relational.entity.BookingDayEntity;
-import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDayDbo;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.persistence.relational.repositories.BookingDayEntityRepository;
 import io.github.marmer.sworhm.persistence.relational.repositories.BookingEntityRepository;
@@ -50,11 +50,11 @@ class JpaBookingPersistencePortImplTest {
             throws Exception {
         // Preparation
         final LocalDate day = testdatageneratorPersistence.getRandom().nextObject(LocalDate.class);
-        final BookingEntity bookingEntity = testdatageneratorPersistence.newBookingEntity().build();
+        final BookingDbo bookingDbo = testdatageneratorPersistence.newBookingEntity().build();
         final Booking booking = testdatagenerator.newBooking().build();
 
-        when(bookingEntityRepository.findByDayDay(day)).thenReturn(singletonList(bookingEntity));
-        when(bookingConverterFromEntity.convert(singletonList(bookingEntity))).thenReturn(singletonList(booking));
+        when(bookingEntityRepository.findByDayDay(day)).thenReturn(singletonList(bookingDbo));
+        when(bookingConverterFromEntity.convert(singletonList(bookingDbo))).thenReturn(singletonList(booking));
 
         // Execution
         final var result = underTest.findBookingsByDay(day);
@@ -69,13 +69,13 @@ class JpaBookingPersistencePortImplTest {
             throws Exception {
         // Preparation
         final Booking bookingToStore = testdatagenerator.newBooking().build();
-        final BookingEntity bookingEntityToStore = testdatageneratorPersistence.newBookingEntity().build();
-        final BookingEntity storedBookingEntity = testdatageneratorPersistence.newBookingEntity().build();
+        final BookingDbo bookingDboToStore = testdatageneratorPersistence.newBookingEntity().build();
+        final BookingDbo storedBookingDbo = testdatageneratorPersistence.newBookingEntity().build();
         final Booking storedBooking = testdatagenerator.newBooking().build();
 
-        when(bookingEntityConverter.convert(bookingToStore)).thenReturn(bookingEntityToStore);
-        when(bookingEntityRepository.save(bookingEntityToStore)).thenReturn(storedBookingEntity);
-        when(bookingConverterFromEntity.convert(storedBookingEntity)).thenReturn(storedBooking);
+        when(bookingEntityConverter.convert(bookingToStore)).thenReturn(bookingDboToStore);
+        when(bookingEntityRepository.save(bookingDboToStore)).thenReturn(storedBookingDbo);
+        when(bookingConverterFromEntity.convert(storedBookingDbo)).thenReturn(storedBooking);
 
 
         // Execution
@@ -96,16 +96,16 @@ class JpaBookingPersistencePortImplTest {
                         .day(day)
                         .build())
                 .build();
-        final BookingEntity.BookingEntityBuilder bookingEntityToStoreTemplate = testdatageneratorPersistence.newBookingEntity();
-        final BookingEntity bookingEntityToStore = bookingEntityToStoreTemplate.build();
-        final BookingEntity storedBookingEntity = testdatageneratorPersistence.newBookingEntity().build();
+        final BookingDbo.BookingDboBuilder bookingEntityToStoreTemplate = testdatageneratorPersistence.newBookingEntity();
+        final BookingDbo bookingDboToStore = bookingEntityToStoreTemplate.build();
+        final BookingDbo storedBookingDbo = testdatageneratorPersistence.newBookingEntity().build();
         final Booking storedBooking = testdatagenerator.newBooking().build();
-        final BookingDayEntity oldBookingDay = testdatageneratorPersistence.newBookingDayEntity().build();
+        final BookingDayDbo oldBookingDay = testdatageneratorPersistence.newBookingDayEntity().build();
 
-        when(bookingEntityConverter.convert(bookingToStore)).thenReturn(bookingEntityToStore);
+        when(bookingEntityConverter.convert(bookingToStore)).thenReturn(bookingDboToStore);
         when(bookingDayEntityRepository.findByDay(day)).thenReturn(Optional.of(oldBookingDay));
-        when(bookingEntityRepository.save(bookingEntityToStoreTemplate.day(oldBookingDay).build())).thenReturn(storedBookingEntity);
-        when(bookingConverterFromEntity.convert(storedBookingEntity)).thenReturn(storedBooking);
+        when(bookingEntityRepository.save(bookingEntityToStoreTemplate.day(oldBookingDay).build())).thenReturn(storedBookingDbo);
+        when(bookingConverterFromEntity.convert(storedBookingDbo)).thenReturn(storedBooking);
 
         // Execution
         final var result = underTest.storeBooking(bookingToStore);

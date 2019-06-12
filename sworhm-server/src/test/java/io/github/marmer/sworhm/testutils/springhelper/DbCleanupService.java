@@ -1,7 +1,7 @@
 package io.github.marmer.sworhm.testutils.springhelper;
 
-import io.github.marmer.sworhm.persistence.relational.entity.BookingDayEntity;
-import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDayDbo;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -17,8 +17,8 @@ public class DbCleanupService {
     @Transactional
     public void clearAll() throws Exception {
         Stream.of(
-                BookingEntity.class,
-                BookingDayEntity.class
+                BookingDbo.class,
+                BookingDayDbo.class
         )
                 .forEach(this::deleteAll);
         entityManager.flush();

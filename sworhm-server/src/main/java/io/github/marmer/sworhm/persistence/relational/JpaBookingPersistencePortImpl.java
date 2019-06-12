@@ -4,7 +4,7 @@ import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.core.persistence.BookingPersistencePort;
 import io.github.marmer.sworhm.persistence.relational.converter.entity.BookingEntityConverter;
 import io.github.marmer.sworhm.persistence.relational.converter.internal.BookingConverterFromEntity;
-import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import io.github.marmer.sworhm.persistence.relational.repositories.BookingDayEntityRepository;
 import io.github.marmer.sworhm.persistence.relational.repositories.BookingEntityRepository;
 
@@ -28,9 +28,9 @@ public class JpaBookingPersistencePortImpl implements BookingPersistencePort {
 
     @Override
     public Booking storeBooking(final Booking booking) {
-        final BookingEntity bookingToSave = bookingEntityConverter.convert(booking);
+        final BookingDbo bookingToSave = bookingEntityConverter.convert(booking);
         bookingDayEntityRepository.findByDay(booking.getDay().getDay()).ifPresent(bookingToSave::setDay);
-        final BookingEntity saved = bookingEntityRepository.save(bookingToSave);
+        final BookingDbo saved = bookingEntityRepository.save(bookingToSave);
         return bookingConverterFromEntity.convert(saved);
     }
 

@@ -1,8 +1,8 @@
 package io.github.marmer.sworhm.test.acceptance.web.ui;
 
 import io.github.marmer.sworhm.core.SystemTimeService;
-import io.github.marmer.sworhm.persistence.relational.entity.BookingDayEntity;
-import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDayDbo;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.testutils.springhelper.DbCleanupService;
 import io.github.marmer.sworhm.testutils.springhelper.TransactionlessTestEntityManager;
@@ -22,8 +22,8 @@ import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.List;
 
-import static io.github.marmer.sworhm.persistence.relational.entity.BookingDayEntityMatcher.isBookingDayEntity;
-import static io.github.marmer.sworhm.persistence.relational.entity.BookingEntityMatcher.isBookingEntity;
+import static io.github.marmer.sworhm.persistence.relational.entity.BookingDayDboMatcher.isBookingDayDbo;
+import static io.github.marmer.sworhm.persistence.relational.entity.BookingDboMatcher.isBookingDbo;
 import static io.github.marmer.sworhm.web.ui.dto.BookingDTOMatcher.isBookingDTO;
 import static org.hamcrest.Matchers.contains;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -66,9 +66,9 @@ class BookingsStoreIT {
                                 .withDescription("funky description")
                                 .withDay(LocalDate.of(2018, 5, 3)))));
 
-        final List<BookingEntity> dbBookings = em.findAllOf(BookingEntity.class);
-        Assert.assertThat(dbBookings, contains(isBookingEntity()
-                .withDay(isBookingDayEntity()
+        final List<BookingDbo> dbBookings = em.findAllOf(BookingDbo.class);
+        Assert.assertThat(dbBookings, contains(isBookingDbo()
+                .withDay(isBookingDayDbo()
                         .withDay(LocalDate.of(2018, 5, 3)))
                 .withDescription("funky description")));
     }
@@ -78,7 +78,7 @@ class BookingsStoreIT {
     void testPostBooking_PreviouslyCreatedDaysAreReused()
             throws Exception {
         // Preparation
-        final BookingDayEntity oldDay = em.persistAndFlush(testdatageneratorPersistence.newBookingDayEntity()
+        final BookingDayDbo oldDay = em.persistAndFlush(testdatageneratorPersistence.newBookingDayEntity()
                 .day(LocalDate.of(2018, 5, 3))
                 .build());
 
@@ -95,8 +95,8 @@ class BookingsStoreIT {
                                 .withDescription("funky description")
                                 .withDay(LocalDate.of(2018, 5, 3)))));
 
-        final List<BookingEntity> dbBookings = em.findAllOf(BookingEntity.class);
-        Assert.assertThat(dbBookings, contains(isBookingEntity()
+        final List<BookingDbo> dbBookings = em.findAllOf(BookingDbo.class);
+        Assert.assertThat(dbBookings, contains(isBookingDbo()
                 .withDay(oldDay)
                 .withDescription("funky description")));
     }

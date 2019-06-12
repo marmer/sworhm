@@ -1,7 +1,7 @@
 package io.github.marmer.sworhm.test.acceptance.web.rest;
 
-import io.github.marmer.sworhm.persistence.relational.entity.BookingDayEntity;
-import io.github.marmer.sworhm.persistence.relational.entity.BookingEntity;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDayDbo;
+import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.testutils.springhelper.DbCleanupService;
 import io.github.marmer.sworhm.testutils.springhelper.TransactionlessTestEntityManager;
@@ -38,9 +38,9 @@ public class BookingsDeleteIT {
     void testDeleteBooking_SouldDeleteSelectedEntities()
             throws Exception {
         // Preparation
-        final BookingDayEntity day = testdatageneratorPersistence.newBookingDayEntity().day(LocalDate.of(2018, 3, 4)).build();
-        final BookingEntity toKeep = testdatageneratorPersistence.newBookingEntity().day(day).build();
-        final BookingEntity toRemove = testdatageneratorPersistence.newBookingEntity().day(day).build();
+        final BookingDayDbo day = testdatageneratorPersistence.newBookingDayEntity().day(LocalDate.of(2018, 3, 4)).build();
+        final BookingDbo toKeep = testdatageneratorPersistence.newBookingEntity().day(day).build();
+        final BookingDbo toRemove = testdatageneratorPersistence.newBookingEntity().day(day).build();
 
         em.doTransactional(() -> {
             em.persistAndFlush(toKeep);
@@ -53,7 +53,7 @@ public class BookingsDeleteIT {
 
         // Assertion
         em.doTransactional(() -> {
-            final List<BookingEntity> bookings = em.findAllOf(BookingEntity.class);
+            final List<BookingDbo> bookings = em.findAllOf(BookingDbo.class);
             Assert.assertThat(bookings, contains(toKeep));
         });
     }
