@@ -3,12 +3,12 @@ package io.github.marmer.sworhm.persistence.relational;
 import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.model.Testdatagenerator;
 import io.github.marmer.sworhm.persistence.relational.converter.entity.BookingEntityConverter;
-import io.github.marmer.sworhm.persistence.relational.converter.internal.BookingConverterFromEntity;
+import io.github.marmer.sworhm.persistence.relational.converter.internal.BookingConverterFromDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.BookingDayDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
-import io.github.marmer.sworhm.persistence.relational.repositories.BookingDayEntityRepository;
-import io.github.marmer.sworhm.persistence.relational.repositories.BookingEntityRepository;
+import io.github.marmer.sworhm.persistence.relational.repositories.BookingDayDboRepository;
+import io.github.marmer.sworhm.persistence.relational.repositories.BookingDboRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,15 +34,15 @@ class JpaBookingPersistencePortImplTest {
     @RegisterExtension
     private final Testdatagenerator testdatagenerator = new Testdatagenerator();
     @Mock
-    private BookingEntityRepository bookingEntityRepository;
+    private BookingDboRepository bookingDboRepository;
     @Mock
-    private BookingConverterFromEntity bookingConverterFromEntity;
+    private BookingConverterFromDbo bookingConverterFromDbo;
     @InjectMocks
     private JpaBookingPersistencePortImpl underTest;
     @Mock
     private BookingEntityConverter bookingEntityConverter;
     @Mock
-    private BookingDayEntityRepository bookingDayEntityRepository;
+    private BookingDayDboRepository bookingDayDboRepository;
 
     @Test
     @DisplayName("Should serve existing bookings")
@@ -53,8 +53,8 @@ class JpaBookingPersistencePortImplTest {
         final BookingDbo bookingDbo = testdatageneratorPersistence.newBookingEntity().build();
         final Booking booking = testdatagenerator.newBooking().build();
 
-        when(bookingEntityRepository.findByDayDay(day)).thenReturn(singletonList(bookingDbo));
-        when(bookingConverterFromEntity.convert(singletonList(bookingDbo))).thenReturn(singletonList(booking));
+        when(bookingDboRepository.findByDayDay(day)).thenReturn(singletonList(bookingDbo));
+        when(bookingConverterFromDbo.convert(singletonList(bookingDbo))).thenReturn(singletonList(booking));
 
         // Execution
         final var result = underTest.findBookingsByDay(day);
@@ -74,8 +74,8 @@ class JpaBookingPersistencePortImplTest {
         final Booking storedBooking = testdatagenerator.newBooking().build();
 
         when(bookingEntityConverter.convert(bookingToStore)).thenReturn(bookingDboToStore);
-        when(bookingEntityRepository.save(bookingDboToStore)).thenReturn(storedBookingDbo);
-        when(bookingConverterFromEntity.convert(storedBookingDbo)).thenReturn(storedBooking);
+        when(bookingDboRepository.save(bookingDboToStore)).thenReturn(storedBookingDbo);
+        when(bookingConverterFromDbo.convert(storedBookingDbo)).thenReturn(storedBooking);
 
 
         // Execution
@@ -103,9 +103,9 @@ class JpaBookingPersistencePortImplTest {
         final BookingDayDbo oldBookingDay = testdatageneratorPersistence.newBookingDayEntity().build();
 
         when(bookingEntityConverter.convert(bookingToStore)).thenReturn(bookingDboToStore);
-        when(bookingDayEntityRepository.findByDay(day)).thenReturn(Optional.of(oldBookingDay));
-        when(bookingEntityRepository.save(bookingEntityToStoreTemplate.day(oldBookingDay).build())).thenReturn(storedBookingDbo);
-        when(bookingConverterFromEntity.convert(storedBookingDbo)).thenReturn(storedBooking);
+        when(bookingDayDboRepository.findByDay(day)).thenReturn(Optional.of(oldBookingDay));
+        when(bookingDboRepository.save(bookingEntityToStoreTemplate.day(oldBookingDay).build())).thenReturn(storedBookingDbo);
+        when(bookingConverterFromDbo.convert(storedBookingDbo)).thenReturn(storedBooking);
 
         // Execution
         final var result = underTest.storeBooking(bookingToStore);
@@ -125,6 +125,6 @@ class JpaBookingPersistencePortImplTest {
         underTest.deleteBooking(bookingId);
 
         // Assertion
-        verify(bookingEntityRepository).deleteById(bookingId);
+        verify(bookingDboRepository).deleteById(bookingId);
     }
 }

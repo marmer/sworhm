@@ -23,8 +23,7 @@ public class BookingDbo {
     @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private BookingDayDbo day;
     private LocalTime startTime;
-    private LocalTime endTime;
-    private int duration;
+    private int durationInMinutes;
     private String notes;
     private String ticket;
     private String description;

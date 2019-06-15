@@ -13,11 +13,7 @@ public class Booking {
     private final String id;
     private final BookingDay day;
     private final LocalTime startTime;
-    private final LocalTime endTime;
-    /**
-     * Duration in Minutes
-     */
-    private final int duration;
+    private final int durationInMinutes;
     private final String notes;
     private final String ticket;
     private final String description;

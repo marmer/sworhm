@@ -1,6 +1,6 @@
 package io.github.marmer.sworhm.persistence.relational.converter;
 
-import io.github.marmer.sworhm.persistence.relational.converter.internal.BookingConverterFromEntity;
+import io.github.marmer.sworhm.persistence.relational.converter.internal.BookingConverterFromDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,9 +18,9 @@ class BookingConverterFromEntityFromDTOTest {
     @RegisterExtension
     private final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
     @Inject
-    private BookingConverterFromEntity bookingConverterFromEntity;
+    private BookingConverterFromDbo bookingConverterFromDbo;
     @Inject
-    private BookingConverterFromEntity underTest;
+    private BookingConverterFromDbo underTest;
 
     @Test
     @DisplayName("Simple entity should be converted into model")
@@ -39,8 +39,7 @@ class BookingConverterFromEntityFromDTOTest {
                         .withId(entity.getDay().getId())
                         .withDay(entity.getDay().getDay()))
                 .withStartTime(entity.getStartTime())
-                .withEndTime(entity.getEndTime())
-                .withDuration(entity.getDuration())
+                .withDurationInMinutes(entity.getDurationInMinutes())
                 .withNotes(entity.getNotes())
                 .withTicket(entity.getTicket())
                 .withDescription(entity.getDescription())

@@ -7,7 +7,7 @@ import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import org.mapstruct.Mapper;
 
 @Mapper(config = MappingConfiguration.class, uses = {BookingDayConverter.class})
-public interface BookingConverterFromEntity extends Converter<BookingDbo, Booking> {
+public interface BookingConverterFromDbo extends Converter<BookingDbo, Booking> {
 
 
     @Override
