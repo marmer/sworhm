@@ -24,17 +24,16 @@ public class BookingController {
                                 .setId("65b8818f-0320-450b-9da0-49f3269bafd7")
                                 .setStartTime("00:55")
                                 .setDurationInMinutes(45)
-                                .setDecscription("another one bites the dust")
+                                .setDescription("another one bites the dust")
                                 .setTicket("JIRA-666")
                                 .setNotes("knocking on heavens door"),
                         new BookingDto()
                                 .setId("1412c9ec-4abe-44d2-a8af-406c45a55b54")
                                 .setStartTime("01:55")
                                 .setDurationInMinutes(117)
-                                .setDecscription("stay alive")
+                                .setDescription("stay alive")
                                 .setTicket("JIRA-999")
-                                .setNotes("cheek to cheek")
-                ));
+                                .setNotes("cheek to cheek")));
     }
 
     @Data
@@ -48,7 +47,7 @@ public class BookingController {
         private String id;
         private String startTime;
         private int durationInMinutes;
-        private String decscription;
+        private String description;
         private String ticket;
         private String notes;
     }
