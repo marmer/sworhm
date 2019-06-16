@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.util.stream.Stream;
+import java.util.List;
 
 import static co.unruly.matchers.StreamMatchers.contains;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -44,7 +44,7 @@ class RelationalBookingPersistencePortAdapterTest {
         final BookingDbo bookingDbo = testdatageneratorPersistence.newBookingDbo();
         final Booking booking = testdatagenerator.newBooking().build();
 
-        when(bookingDboRepository.findAllByDay(day)).thenReturn(Stream.of(bookingDbo));
+        when(bookingDboRepository.findAllByDay(day)).thenReturn(List.of(bookingDbo));
         when(bookingConverter.convert(bookingDbo)).thenReturn(booking);
 
         // Execution

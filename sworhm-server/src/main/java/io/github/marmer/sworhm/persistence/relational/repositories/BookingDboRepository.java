@@ -4,8 +4,8 @@ import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
-import java.util.stream.Stream;
+import java.util.List;
 
 public interface BookingDboRepository extends JpaRepository<BookingDbo, String> {
-    Stream<BookingDbo> findAllByDay(LocalDate day);
+    List<BookingDbo> findAllByDay(LocalDate day);
 }

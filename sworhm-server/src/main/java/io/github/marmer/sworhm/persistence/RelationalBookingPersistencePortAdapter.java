@@ -7,9 +7,7 @@ import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import io.github.marmer.sworhm.persistence.relational.repositories.BookingDboRepository;
 
 import javax.inject.Named;
-import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 @Named
@@ -23,22 +21,9 @@ public class RelationalBookingPersistencePortAdapter implements BookingPersisten
     }
 
     @Override
-    @Transactional
     public Stream<Booking> findBookingsByDay(final LocalDate day) {
         return bookingDboRepository.findAllByDay(day)
-                .map(bookingConverter::convert)
-                .collect(toStreamProcessed());
-    }
-
-    private <T> Collector<T, Stream.Builder<T>, Stream<T>> toStreamProcessed() {
-        return Collector.of(
-                Stream::builder,
-                Stream.Builder::add,
-                (builder, builder2) -> {
-                    builder2.build().forEach(builder::add);
-                    return builder;
-                },
-                Stream.Builder::build
-        );
+                .stream()
+                .map(bookingConverter::convert);
     }
 }

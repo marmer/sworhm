@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 import javax.inject.Inject;
 import java.time.LocalDate;
 
-import static co.unruly.matchers.StreamMatchers.contains;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
 @DataJpaTest
