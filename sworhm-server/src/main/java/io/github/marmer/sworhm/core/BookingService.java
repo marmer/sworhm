@@ -9,13 +9,6 @@ import java.util.List;
  * Service to handle bookings.
  */
 public interface BookingService {
-    /**
-     * Persists or updates a booking.
-     *
-     * @param booking The booking to persist.
-     * @return The persisted booking.
-     */
-    Booking storeBooking(Booking booking);
 
     /**
      * Loads all bookings for a specific day.
@@ -25,10 +18,4 @@ public interface BookingService {
      */
     List<Booking> findBookingsByDay(LocalDate day);
 
-    /**
-     * Deletes a booking by its ID.
-     *
-     * @param bookingId Idof the booking to delete
-     */
-    void deleteBooking(String bookingId);
 }

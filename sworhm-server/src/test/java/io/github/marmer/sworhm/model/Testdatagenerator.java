@@ -3,7 +3,6 @@ package io.github.marmer.sworhm.model;
 import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import io.github.marmer.sworhm.core.model.Booking;
-import io.github.marmer.sworhm.core.model.BookingDay;
 import lombok.Getter;
 
 import static io.github.benas.randombeans.FieldDefinitionBuilder.field;
@@ -15,11 +14,8 @@ public class Testdatagenerator {
             .exclude(field().named("id").ofType(String.class).get())
             .exclude(field().named("version").ofType(Long.class).get())
             .build();
+
     public Booking.BookingBuilder newBooking() {
         return random.nextObject(Booking.BookingBuilder.class);
-    }
-
-    public BookingDay.BookingDayBuilder newBookingDay() {
-        return random.nextObject(BookingDay.BookingDayBuilder.class);
     }
 }

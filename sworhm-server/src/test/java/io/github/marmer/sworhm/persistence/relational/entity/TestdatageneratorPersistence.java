@@ -14,12 +14,8 @@ public class TestdatageneratorPersistence {
             .exclude(field().named("version").ofType(Long.class).get())
             .build();
 
-    public BookingDbo.BookingDboBuilder newBookingEntity() {
+    public BookingDbo.BookingDboBuilder newBookingDbo() {
         return random.nextObject(BookingDbo.BookingDboBuilder.class);
-    }
-
-    public BookingDayDbo.BookingDayDboBuilder newBookingDayEntity() {
-        return random.nextObject(BookingDayDbo.BookingDayDboBuilder.class);
     }
 
 }

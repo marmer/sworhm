@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.experimental.Wither;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Value
@@ -11,7 +12,7 @@ import java.time.LocalTime;
 @Builder
 public class Booking {
     private final String id;
-    private final BookingDay day;
+    private final LocalDate day;
     private final LocalTime startTime;
     private final int durationInMinutes;
     private final String notes;
