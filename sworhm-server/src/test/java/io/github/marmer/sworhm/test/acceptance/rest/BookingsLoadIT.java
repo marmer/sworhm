@@ -2,7 +2,9 @@ package io.github.marmer.sworhm.test.acceptance.rest;
 
 import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
+import io.github.marmer.sworhm.testutils.springhelper.DbCleanupService;
 import io.github.marmer.sworhm.testutils.springhelper.TransactionlessTestEntityManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -27,6 +29,13 @@ public class BookingsLoadIT {
     private TransactionlessTestEntityManager entityManager;
     @Inject
     private MockMvc mockMvc;
+    @Inject
+    private DbCleanupService dbCleanupService;
+
+    @BeforeEach
+    void setUp() {
+        dbCleanupService.clearAll();
+    }
 
     @Test
     @DisplayName("Existing bookings shuold be served")

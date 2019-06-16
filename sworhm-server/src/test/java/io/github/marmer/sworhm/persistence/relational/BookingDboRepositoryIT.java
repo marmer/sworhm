@@ -3,7 +3,9 @@ package io.github.marmer.sworhm.persistence.relational;
 import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.persistence.relational.repositories.BookingDboRepository;
+import io.github.marmer.sworhm.testutils.springhelper.DbCleanupService;
 import io.github.marmer.sworhm.testutils.springhelper.TransactionlessTestEntityManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -22,9 +24,16 @@ class BookingDboRepositoryIT {
     @RegisterExtension
     private final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
     @Inject
+    private DbCleanupService dbCleanupService;
+    @Inject
     private BookingDboRepository underTest;
     @Inject
     private TransactionlessTestEntityManager entityManager;
+
+    @BeforeEach
+    void setUp() {
+        dbCleanupService.clearAll();
+    }
 
     @Test
     @DisplayName("Only existing Bookings should be loaded")
