@@ -25,14 +25,12 @@ public class RelationalBookingPersistencePortAdapter implements BookingPersisten
     @Override
     @Transactional
     public Stream<Booking> findBookingsByDay(final LocalDate day) {
-
-
         return bookingDboRepository.findAllByDay(day)
-                .collect(toStream())
-                .map(bookingConverter::convert);
+                .map(bookingConverter::convert)
+                .collect(finishedToStream());
     }
 
-    private Collector<BookingDbo, Stream.Builder<BookingDbo>, Stream<BookingDbo>> toStream() {
+    private <T> Collector<T, Stream.Builder<T>, Stream<T>> finishedToStream() {
         return Collector.of(
                 Stream::builder,
                 Stream.Builder::add,
