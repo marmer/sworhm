@@ -27,10 +27,10 @@ public class RelationalBookingPersistencePortAdapter implements BookingPersisten
     public Stream<Booking> findBookingsByDay(final LocalDate day) {
         return bookingDboRepository.findAllByDay(day)
                 .map(bookingConverter::convert)
-                .collect(finishedToStream());
+                .collect(toStreamProcessed());
     }
 
-    private <T> Collector<T, Stream.Builder<T>, Stream<T>> finishedToStream() {
+    private <T> Collector<T, Stream.Builder<T>, Stream<T>> toStreamProcessed() {
         return Collector.of(
                 Stream::builder,
                 Stream.Builder::add,
