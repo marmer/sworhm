@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .permitAll().and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/**").permitAll()
+                .antMatchers("/api/v1/days/*/bookings/*").permitAll()
                 .antMatchers("/**").denyAll().and()
                 .httpBasic().realmName("sworhm");
     }
