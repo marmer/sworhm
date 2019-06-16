@@ -1,11 +1,9 @@
 package io.github.marmer.sworhm.rest.configuration;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
 
-@ConfigurationProperties("sworhm.security.global.cors.config")
 @Data
 public class GlobalCorsConfig {
     private List<String> allowedOrigins;

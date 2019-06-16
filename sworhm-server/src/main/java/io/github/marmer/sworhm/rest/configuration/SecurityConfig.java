@@ -1,5 +1,6 @@
 package io.github.marmer.sworhm.rest.configuration;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -60,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    @ConfigurationProperties("sworhm.security.global.cors.config")
     protected GlobalCorsConfig corsConfig() {
         return new GlobalCorsConfig();
     }
