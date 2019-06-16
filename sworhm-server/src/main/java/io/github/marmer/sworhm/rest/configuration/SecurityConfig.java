@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .permitAll().and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/days/*/bookings/*").permitAll()
+                .antMatchers("/api/v1/**").permitAll()
                 .antMatchers("/**").denyAll().and()
                 .httpBasic().realmName("sworhm");
     }
@@ -51,13 +51,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         final String idForEncode = "bcrypt";
         final Map<String, PasswordEncoder> encoders = new HashMap<>();
         encoders.put(idForEncode, new BCryptPasswordEncoder());
-        encoders.put("noop", NoOpPasswordEncoder.getInstance());
+        encoders.put("noop", newNoopPasswordEncoder());
         encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
         encoders.put("scrypt", new SCryptPasswordEncoder());
 
         final DelegatingPasswordEncoder delegatingPasswordEncoder = new DelegatingPasswordEncoder(idForEncode, encoders);
         delegatingPasswordEncoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
         return delegatingPasswordEncoder;
+    }
+
+    private PasswordEncoder newNoopPasswordEncoder() {
+        @SuppressWarnings("squid:CallToDeprecatedMethod") final PasswordEncoder instance = NoOpPasswordEncoder.getInstance();
+        return instance;
     }
 
     @Bean
