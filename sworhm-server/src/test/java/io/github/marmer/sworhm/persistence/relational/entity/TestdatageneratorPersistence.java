@@ -10,7 +10,6 @@ public class TestdatageneratorPersistence {
     @Getter
     private final EnhancedRandom random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
             .seed(getClass().getName().hashCode())
-            .exclude(field().named("id").ofType(String.class).get())
             .exclude(field().named("version").ofType(Long.class).get())
             .build();
 
