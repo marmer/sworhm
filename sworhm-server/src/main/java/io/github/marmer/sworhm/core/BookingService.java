@@ -3,7 +3,7 @@ package io.github.marmer.sworhm.core;
 import io.github.marmer.sworhm.core.model.Booking;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Service to handle bookings.
@@ -16,6 +16,5 @@ public interface BookingService {
      * @param day The day to load Bookings for.
      * @return Bookings of the day
      */
-    List<Booking> findBookingsByDay(LocalDate day);
-
+    Stream<Booking> getBookingsByDay(LocalDate day);
 }

@@ -35,23 +35,23 @@ public class BookingsLoadIT {
         // Preparation
         final LocalDate day = LocalDate.of(2002, 3, 4);
         final BookingDbo booking1 = entityManager.persist(testdatageneratorPersistence.newBookingDbo()
-                .day(day)
-                .id("65b8818f-0320-450b-9da0-49f3269bafd7")
-                .startTime(LocalTime.of(0, 55))
-                .durationInMinutes(45)
-                .description("another one bites the dust")
-                .ticket("JIRA-666")
-                .notes("knocking on heavens door")
-                .build());
+                .setDay(day)
+                .setId("65b8818f-0320-450b-9da0-49f3269bafd7")
+                .setStartTime(LocalTime.of(0, 55))
+                .setDurationInMinutes(45)
+                .setDescription("another one bites the dust")
+                .setTicket("JIRA-666")
+                .setNotes("knocking on heavens door")
+        );
         final BookingDbo booking2 = entityManager.persist(testdatageneratorPersistence.newBookingDbo()
-                .day(day)
-                .id("1412c9ec-4abe-44d2-a8af-406c45a55b54")
-                .startTime(LocalTime.of(1, 55))
-                .durationInMinutes(117)
-                .description("stay alive")
-                .ticket("JIRA-999")
-                .notes("cheek to cheek")
-                .build());
+                .setDay(day)
+                .setId("1412c9ec-4abe-44d2-a8af-406c45a55b54")
+                .setStartTime(LocalTime.of(1, 55))
+                .setDurationInMinutes(117)
+                .setDescription("stay alive")
+                .setTicket("JIRA-999")
+                .setNotes("cheek to cheek")
+        );
 
         // Execution
         final var result = mockMvc.perform(get("/api/v1/days/2002-03-04/bookings"));

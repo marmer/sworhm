@@ -29,7 +29,6 @@
         <mapstruct.version>1.3.0.Final</mapstruct.version>
         <version.hamcrest-matcher-generator>4.2.0</version.hamcrest-matcher-generator>
         <spring.testprofiles>test</spring.testprofiles>
-        <junit-extensions.version>2.3.0</junit-extensions.version>
         <postgresql.version>42.2.5</postgresql.version>
     </properties>
 
@@ -160,10 +159,20 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>io.github.glytching</groupId>
-            <artifactId>junit-extensions</artifactId>
-            <version>${junit-extensions.version}</version>
+            <groupId>org.jeasy</groupId>
+            <artifactId>easy-random-core</artifactId>
+            <version>4.0.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jeasy</groupId>
+            <artifactId>easy-random-randomizers</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>co.unruly</groupId>
+            <artifactId>java-8-matchers</artifactId>
+            <version>1.6</version>
         </dependency>
     </dependencies>
 

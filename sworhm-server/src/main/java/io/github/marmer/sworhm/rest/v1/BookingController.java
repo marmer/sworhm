@@ -2,6 +2,8 @@ package io.github.marmer.sworhm.rest.v1;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.marmer.sworhm.core.BookingService;
+import io.github.marmer.sworhm.core.Converter;
+import io.github.marmer.sworhm.core.model.Booking;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,46 +15,38 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/v1/days/{bookingDay}/bookings")
 public class BookingController {
     private final BookingService bookingService;
+    private final Converter<Booking, BookingDto> bookingConverter;
 
-    public BookingController(final BookingService bookingService) {
+    public BookingController(final BookingService bookingService, final Converter<Booking, BookingDto> bookingConverter) {
         this.bookingService = bookingService;
+        this.bookingConverter = bookingConverter;
     }
 
     @GetMapping
-    public BookingsDto getBookings(
+    public BookingsDto getBookingsByDay(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate bookingDay) {
+
         return new BookingsDto()
-                .setBookingDay(bookingDay)
-                .setBookings(List.of(
-                        new BookingDto()
-                                .setId("65b8818f-0320-450b-9da0-49f3269bafd7")
-                                .setStartTime(LocalTime.of(0, 55))
-                                .setDurationInMinutes(45)
-                                .setDescription("another one bites the dust")
-                                .setTicket("JIRA-666")
-                                .setNotes("knocking on heavens door"),
-                        new BookingDto()
-                                .setId("1412c9ec-4abe-44d2-a8af-406c45a55b54")
-                                .setStartTime(LocalTime.of(1, 53))
-                                .setDurationInMinutes(117)
-                                .setDescription("stay alive")
-                                .setTicket("JIRA-999")
-                                .setNotes("cheek to cheek")));
+                .setDay(bookingDay)
+                .setBookings(bookingService.getBookingsByDay(bookingDay)
+                        .map(bookingConverter::convert)
+                        .collect(Collectors.toList()));
     }
 
     @Data
-    private static class BookingsDto {
-        private LocalDate bookingDay;
+    public static class BookingsDto {
+        private LocalDate day;
         private List<BookingDto> bookings = new ArrayList<>();
     }
 
     @Data
-    private static class BookingDto {
+    public static class BookingDto {
         private String id;
         @JsonFormat(pattern = "HH:mm")
         private LocalTime startTime;

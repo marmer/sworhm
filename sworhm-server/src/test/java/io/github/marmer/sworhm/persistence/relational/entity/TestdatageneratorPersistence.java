@@ -1,20 +1,19 @@
 package io.github.marmer.sworhm.persistence.relational.entity;
 
-import io.github.benas.randombeans.EnhancedRandomBuilder;
-import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.Getter;
-
-import static io.github.benas.randombeans.FieldDefinitionBuilder.field;
+import org.jeasy.random.EasyRandom;
+import org.jeasy.random.EasyRandomParameters;
 
 public class TestdatageneratorPersistence {
     @Getter
-    private final EnhancedRandom random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
+    private final EasyRandom random = new EasyRandom(new EasyRandomParameters()
             .seed(getClass().getName().hashCode())
-            .exclude(field().named("version").ofType(Long.class).get())
-            .build();
+            .excludeField(field ->
+                    field.getName().equals("version") &&
+                            field.getType().equals(Long.class)));
 
-    public BookingDbo.BookingDboBuilder newBookingDbo() {
-        return random.nextObject(BookingDbo.BookingDboBuilder.class);
+    public BookingDbo newBookingDbo() {
+        return random.nextObject(BookingDbo.class);
     }
 
 }

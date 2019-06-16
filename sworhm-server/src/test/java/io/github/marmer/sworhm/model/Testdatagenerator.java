@@ -1,19 +1,17 @@
 package io.github.marmer.sworhm.model;
 
-import io.github.benas.randombeans.EnhancedRandomBuilder;
-import io.github.benas.randombeans.api.EnhancedRandom;
 import io.github.marmer.sworhm.core.model.Booking;
 import lombok.Getter;
-
-import static io.github.benas.randombeans.FieldDefinitionBuilder.field;
+import org.jeasy.random.EasyRandom;
+import org.jeasy.random.EasyRandomParameters;
 
 public class Testdatagenerator {
     @Getter
-    private final EnhancedRandom random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
+    private final EasyRandom random = new EasyRandom(new EasyRandomParameters()
             .seed(getClass().getName().hashCode())
-            .exclude(field().named("id").ofType(String.class).get())
-            .exclude(field().named("version").ofType(Long.class).get())
-            .build();
+            .excludeField(field ->
+                    field.getName().equals("version") &&
+                            field.getType().equals(Long.class)));
 
     public Booking.BookingBuilder newBooking() {
         return random.nextObject(Booking.BookingBuilder.class);
