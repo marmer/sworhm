@@ -17,7 +17,6 @@ public class BookingController {
     public ResponseEntity<String> getBookings(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate bookingDay) {
         return ResponseEntity.status(200)
-                .header("Access-Control-Allow-Origin", "*")
                 .body("{\n" +
                         "  \"day\": \"2002-02-01\",\n" +
                         "  \"entries\": [\n" +
