@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.inject.Inject;
@@ -58,7 +59,9 @@ public class BookingsSaveIT {
         final String id = "1412c9ec-4abe-44d2-a8af-406c45a55b54";
 
         // Execution
-        final var result = mockMvc.perform(put("/api/v1/days/{bookingDay}/bookings/{id}", day, id));
+        final var result = mockMvc.perform(put("/api/v1/days/{bookingDay}/bookings/{id}", day, id)
+                .content(bookingJson)
+                .contentType(MediaType.APPLICATION_JSON));
 
         // Assertion
         assertAll(
@@ -95,7 +98,9 @@ public class BookingsSaveIT {
                 .setId(id));
 
         // Execution
-        final var result = mockMvc.perform(put("/api/v1/days/{bookingDay}/bookings/{id}", day, id));
+        final var result = mockMvc.perform(put("/api/v1/days/{bookingDay}/bookings/{id}", day, id)
+                .content(bookingJson)
+                .contentType(MediaType.APPLICATION_JSON));
 
         // Assertion
         assertAll(
@@ -110,6 +115,4 @@ public class BookingsSaveIT {
                                 .withNotes("cheek to cheek")
                         )));
     }
-
-    // TODO: marmer 16.06.2019 what if the URL id and the item id does not match?
 }

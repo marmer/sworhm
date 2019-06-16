@@ -6,10 +6,7 @@ import io.github.marmer.sworhm.core.Converter;
 import io.github.marmer.sworhm.core.model.Booking;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -37,6 +34,11 @@ public class BookingController {
                 .setBookings(bookingService.getBookingsByDay(bookingDay)
                         .map(bookingConverter::convert)
                         .collect(Collectors.toList()));
+    }
+
+    @PutMapping("/{id}")
+    public void putBooking(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate bookingDay,
+                           @RequestBody final BookingDto booking) {
     }
 
     @Data
