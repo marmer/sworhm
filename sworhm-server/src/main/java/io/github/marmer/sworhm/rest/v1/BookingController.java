@@ -1,6 +1,7 @@
 package io.github.marmer.sworhm.rest.v1;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.marmer.sworhm.core.BookingService;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,12 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/days/{bookingDay}/bookings")
 public class BookingController {
+    private final BookingService bookingService;
+
+    public BookingController(final BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
+
     @GetMapping
     public BookingsDto getBookings(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate bookingDay) {
