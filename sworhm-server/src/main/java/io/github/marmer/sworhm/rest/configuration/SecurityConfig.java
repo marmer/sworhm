@@ -1,6 +1,5 @@
 package io.github.marmer.sworhm.rest.configuration;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -15,9 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,26 +59,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder newNoopPasswordEncoder() {
         @SuppressWarnings("squid:CallToDeprecatedMethod") final PasswordEncoder instance = NoOpPasswordEncoder.getInstance();
         return instance;
-    }
-
-    @Bean
-    @ConfigurationProperties("sworhm.security.global.cors.config")
-    protected GlobalCorsConfig corsConfig() {
-        return new GlobalCorsConfig();
-    }
-
-    @Bean
-    protected CorsConfigurationSource corsConfigurationSource(final GlobalCorsConfig globalCorsConfig) {
-        final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(globalCorsConfig.getAllowedOrigins());
-        configuration.setAllowedMethods(globalCorsConfig.getAllowedMethods());
-        configuration.setAllowedHeaders(globalCorsConfig.getAllowedHeaders());
-        configuration.setAllowCredentials(globalCorsConfig.getAllowCredentials());
-        configuration.setExposedHeaders(globalCorsConfig.getExposedHeaders());
-        configuration.setMaxAge(globalCorsConfig.getMaxAge());
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-
-        return source;
     }
 }

@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/v1/days/{bookingDay}/bookings")
+@CrossOrigin
 public class BookingController {
     private final BookingService bookingService;
     private final BookingFromDtoConverter bookingFromDtoConverter;
@@ -28,7 +29,6 @@ public class BookingController {
         this.bookingFromDtoConverter = bookingFromDtoConverter;
         this.bookingDtoFromModelConverter = bookingDtoFromModelConverter;
     }
-
 
     @GetMapping
     public BookingsDto getBookingsByDay(
