@@ -2,12 +2,14 @@ package io.github.marmer.sworhm.rest.v1;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.marmer.sworhm.core.BookingService;
-import io.github.marmer.sworhm.core.Converter;
 import io.github.marmer.sworhm.core.model.Booking;
+import io.github.marmer.sworhm.rest.v1.converter.external.BookingDtoFromModelConverter;
+import io.github.marmer.sworhm.rest.v1.converter.internal.BookingFromDtoConverter;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -18,12 +20,15 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/v1/days/{bookingDay}/bookings")
 public class BookingController {
     private final BookingService bookingService;
-    private final Converter<Booking, BookingDto> bookingConverter;
+    private final BookingFromDtoConverter bookingFromDtoConverter;
+    private final BookingDtoFromModelConverter bookingDtoFromModelConverter;
 
-    public BookingController(final BookingService bookingService, final Converter<Booking, BookingDto> bookingConverter) {
+    public BookingController(final BookingService bookingService, final BookingFromDtoConverter bookingFromDtoConverter, final BookingDtoFromModelConverter bookingDtoFromModelConverter) {
         this.bookingService = bookingService;
-        this.bookingConverter = bookingConverter;
+        this.bookingFromDtoConverter = bookingFromDtoConverter;
+        this.bookingDtoFromModelConverter = bookingDtoFromModelConverter;
     }
+
 
     @GetMapping
     public BookingsDto getBookingsByDay(
@@ -31,14 +36,20 @@ public class BookingController {
 
         return new BookingsDto()
                 .setDay(bookingDay)
-                .setBookings(bookingService.getBookingsByDay(bookingDay)
-                        .map(bookingConverter::convert)
-                        .collect(Collectors.toList()));
+                .setBookings(bookingsAtDay(bookingDay));
+    }
+
+    private List<BookingDto> bookingsAtDay(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable final LocalDate bookingDay) {
+        return bookingService.getBookingsByDay(bookingDay)
+                .map(bookingDtoFromModelConverter::convert)
+                .collect(Collectors.toList());
     }
 
     @PutMapping("/{id}")
     public void putBooking(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate bookingDay,
-                           @RequestBody final BookingDto booking) {
+                           @RequestBody final BookingDto bookingDto) {
+        final Booking booking = bookingFromDtoConverter.convert(bookingDto);
+        bookingService.saveOrUpdate(booking.withDay(bookingDay));
     }
 
     @Data
@@ -49,6 +60,7 @@ public class BookingController {
 
     @Data
     public static class BookingDto {
+        @NotBlank
         private String id;
         @JsonFormat(pattern = "HH:mm")
         private LocalTime startTime;

@@ -20,4 +20,9 @@ public class SimpleBookingService implements BookingService {
     public Stream<Booking> getBookingsByDay(final LocalDate day) {
         return bookingPersistencePort.findBookingsByDay(day);
     }
+
+    @Override
+    public void saveOrUpdate(final Booking booking) {
+        throw new UnsupportedOperationException("not implemented yet");
+    }
 }

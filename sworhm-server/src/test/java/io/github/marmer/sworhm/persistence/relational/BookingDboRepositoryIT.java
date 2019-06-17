@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
 @DataJpaTest
-@Import(TransactionlessTestEntityManager.class)
+@Import({TransactionlessTestEntityManager.class, DbCleanupService.class})
 class BookingDboRepositoryIT {
     @RegisterExtension
     private final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();

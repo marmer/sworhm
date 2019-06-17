@@ -17,4 +17,11 @@ public interface BookingService {
      * @return Bookings of the day
      */
     Stream<Booking> getBookingsByDay(LocalDate day);
+
+    /**
+     * Stores the given booking or if a booking with the given id exists already it will be updated.
+     *
+     * @param booking Booking to store
+     */
+    void saveOrUpdate(Booking booking);
 }

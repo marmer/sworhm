@@ -1,9 +1,9 @@
 package io.github.marmer.sworhm.persistence.relational;
 
-import io.github.marmer.sworhm.core.Converter;
 import io.github.marmer.sworhm.core.model.Booking;
 import io.github.marmer.sworhm.model.Testdatagenerator;
 import io.github.marmer.sworhm.persistence.RelationalBookingPersistencePortAdapter;
+import io.github.marmer.sworhm.persistence.relational.converter.internal.BookingFromBookingDboConverter;
 import io.github.marmer.sworhm.persistence.relational.entity.BookingDbo;
 import io.github.marmer.sworhm.persistence.relational.entity.TestdatageneratorPersistence;
 import io.github.marmer.sworhm.persistence.relational.repositories.BookingDboRepository;
@@ -33,7 +33,7 @@ class RelationalBookingPersistencePortAdapterTest {
     @Mock
     private BookingDboRepository bookingDboRepository;
     @Mock
-    private Converter<BookingDbo, Booking> bookingConverter;
+    private BookingFromBookingDboConverter bookingFromBookingDboConverter;
 
     @Test
     @DisplayName("Existing bookings should be returned")
@@ -45,7 +45,7 @@ class RelationalBookingPersistencePortAdapterTest {
         final Booking booking = testdatagenerator.newBooking().build();
 
         when(bookingDboRepository.findAllByDay(day)).thenReturn(List.of(bookingDbo));
-        when(bookingConverter.convert(bookingDbo)).thenReturn(booking);
+        when(bookingFromBookingDboConverter.convert(bookingDbo)).thenReturn(booking);
 
         // Execution
         final var result = underTest.findBookingsByDay(day);
