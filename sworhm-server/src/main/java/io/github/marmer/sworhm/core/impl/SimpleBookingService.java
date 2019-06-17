@@ -23,6 +23,6 @@ public class SimpleBookingService implements BookingService {
 
     @Override
     public void saveOrUpdate(final Booking booking) {
-        throw new UnsupportedOperationException("not implemented yet");
+        bookingPersistencePort.saveOrUpdate(booking);
     }
 }

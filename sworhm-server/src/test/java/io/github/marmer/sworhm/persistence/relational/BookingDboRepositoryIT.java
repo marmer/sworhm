@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import java.time.LocalDate;
 
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 
 @DataJpaTest
@@ -50,5 +51,49 @@ class BookingDboRepositoryIT {
 
         // Assertion
         assertThat(result, contains(rightDbo));
+    }
+
+    @Test
+    @DisplayName("No existing booking shuold be stored")
+    void saveOrUpdate_NoExistingBookingShuoldBeStored()
+            throws Exception {
+        // Preparation
+        final BookingDbo bookingDbo = testdatageneratorPersistence.newBookingDbo();
+
+        // Execution
+        underTest.saveOrUpdate(bookingDbo);
+
+        // Assertion
+        assertThat(entityManager.findAllOf(BookingDbo.class), contains(bookingDbo));
+    }
+
+    @Test
+    @DisplayName("Existing bookings should get updated")
+    void saveOrUpdate_ExistingBookingsShouldGetUpdated()
+            throws Exception {
+        // Preparation
+        final BookingDbo oldBooking = entityManager.persistAndFlush(testdatageneratorPersistence.newBookingDbo());
+        final BookingDbo updatedBooking = testdatageneratorPersistence.newBookingDbo().setId(oldBooking.getId());
+
+        // Execution
+        underTest.saveOrUpdate(updatedBooking);
+
+        // Assertion
+        assertThat(entityManager.findAllOf(BookingDbo.class), contains(updatedBooking));
+    }
+
+    @Test
+    @DisplayName("Multiple saves with bookings with different ids should be stored seperately")
+    void saveOrUpdate_MultipleSavesWithBookingsWithDifferentIdsShouldBeStoredSeperately()
+            throws Exception {
+        // Preparation
+        final BookingDbo oldBooking = entityManager.persistAndFlush(testdatageneratorPersistence.newBookingDbo());
+        final BookingDbo newBooking = testdatageneratorPersistence.newBookingDbo();
+
+        // Execution
+        underTest.saveOrUpdate(newBooking);
+
+        // Assertion
+        assertThat(entityManager.findAllOf(BookingDbo.class), containsInAnyOrder(oldBooking, newBooking));
     }
 }

@@ -16,4 +16,6 @@ public interface BookingPersistencePort {
      * @return Bookings of the day
      */
     Stream<Booking> findBookingsByDay(LocalDate day);
+
+    void saveOrUpdate(Booking booking);
 }

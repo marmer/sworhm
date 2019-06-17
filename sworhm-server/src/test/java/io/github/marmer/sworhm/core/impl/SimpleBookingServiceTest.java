@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 
 import static co.unruly.matchers.StreamMatchers.contains;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,5 +42,19 @@ class SimpleBookingServiceTest {
 
         // Assertion
         assertThat(result, contains(booking));
+    }
+
+    @Test
+    @DisplayName("Given booking should be stored or updated")
+    void saveOrUpdate_GivenBookingShouldBeStoredOrUpdated()
+            throws Exception {
+        // Preparation
+        final Booking booking = testdatagenerator.newBooking().build();
+
+        // Execution
+        underTest.saveOrUpdate(booking);
+
+        // Assertion
+        verify(bookingPersistencePort).saveOrUpdate(booking);
     }
 }
