@@ -238,7 +238,7 @@
                                             <alias>it-database</alias>
                                             <run>
                                                 <ports>
-                                                    <port>5433:5432</port>
+                                                    <port>5432:5432</port>
                                                 </ports>
                                                 <wait>
                                                     <log>(?s)autovacuum launcher started</log>

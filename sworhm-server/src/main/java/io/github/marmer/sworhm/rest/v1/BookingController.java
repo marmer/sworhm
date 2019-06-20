@@ -55,7 +55,7 @@ public class BookingController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBookingById(final String id) {
+    public void deleteBookingById(@PathVariable("id") final String id) {
         bookingService.deleteBookingById(id);
     }
 
