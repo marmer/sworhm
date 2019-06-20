@@ -6,6 +6,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: false
+    database: postgresql
   datasource:
     # marmer TODO make the configuration work in IDE, Maven and travis without the need of shutting down the local server
     url: jdbc:postgresql://localhost:5432/sworhm

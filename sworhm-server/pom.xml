@@ -30,6 +30,7 @@
         <version.hamcrest-matcher-generator>4.2.0</version.hamcrest-matcher-generator>
         <spring.testprofiles>test</spring.testprofiles>
         <postgresql.version>42.2.5</postgresql.version>
+        <testDbPort>5432</testDbPort>
     </properties>
 
     <dependencies>
@@ -238,7 +239,7 @@
                                             <alias>it-database</alias>
                                             <run>
                                                 <ports>
-                                                    <port>5432:5432</port>
+                                                    <port>5432:${testDbPort}</port>
                                                 </ports>
                                                 <wait>
                                                     <log>(?s)autovacuum launcher started</log>
