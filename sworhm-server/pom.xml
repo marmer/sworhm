@@ -30,7 +30,6 @@
         <version.hamcrest-matcher-generator>4.2.0</version.hamcrest-matcher-generator>
         <spring.testprofiles>test</spring.testprofiles>
         <postgresql.version>42.2.5</postgresql.version>
-        <skipDocker>false</skipDocker>
     </properties>
 
     <dependencies>
@@ -202,7 +201,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.30.0</version>
                 <configuration>
-                    <skip>${skipDocker}</skip>
+                    <skip>${skipTests}</skip>
                 </configuration>
                 <executions>
                     <execution>
