@@ -1,6 +1,8 @@
 language: java
 jdk: oraclejdk11
 sudo: false
+services:
+  - docker
 git:
   depth: false
 env:
@@ -8,7 +10,7 @@ env:
     - SPRING_DATASOURCE_URL=jdbc:h2:mem:sworhm
     - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/sworhm SPRING_DATASOURCE_PASSWORD=sworhmmpw
 addons:
-  postgresql: "9.6"
+  #  postgresql: "9.6"
   sonarcloud:
     organization: "marmer-github"
     token:
@@ -19,16 +21,16 @@ cache:
     - $HOME/apache-maven-${MAVEN_VERSION}
     - $HOME/.sonar/cache
 before_cache:
-- rm -rfv $HOME/.m2/repository/io/github/marmer
+  - rm -rfv $HOME/.m2/repository/io/github/marmer
 before_install:
-- export M2_HOME=$HOME/apache-maven-${MAVEN_VERSION}
-- if [ ! -d $M2_HOME/bin ]; then curl https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
-  | tar zxf - -C $HOME; fi
-- export PATH=$M2_HOME/bin:$PATH
-- psql -c "create database sworhm"
-- psql -c "create user sworhm with encrypted password 'sworhmpw'"
-- psql -c "grant all privileges on database sworhm to sworhm"
+  - export M2_HOME=$HOME/apache-maven-${MAVEN_VERSION}
+  - if [ ! -d $M2_HOME/bin ]; then curl https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
+    | tar zxf - -C $HOME; fi
+  - export PATH=$M2_HOME/bin:$PATH
+  - psql -c "create database sworhm"
+  - psql -c "create user sworhm with encrypted password 'sworhmpw'"
+  - psql -c "grant all privileges on database sworhm to sworhm"
 install:
-- mvn clean install -DskipTests=true -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -B -V -U
+  - mvn clean install -DskipTests=true -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -B -V -U
 script:
   - mvn org.jacoco:jacoco-maven-plugin:0.8.2:prepare-agent verify sonar:sonar -Dmaven.javadoc.skip -Dmaven.source.skip -Dassembly.skipAssembly -V
