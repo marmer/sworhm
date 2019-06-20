@@ -202,13 +202,6 @@
                 <version>0.30.0</version>
                 <executions>
                     <execution>
-                        <id>remove-it-database-before</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                    <execution>
                         <id>prepare-it-database</id>
                         <phase>pre-integration-test</phase>
                         <goals>
