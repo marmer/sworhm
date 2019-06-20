@@ -196,51 +196,6 @@
                     </environmentVariables>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.30.0</version>
-                <configuration>
-                    <skip>${skipTests}</skip>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>prepare-it-database</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>start</goal>
-                        </goals>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <name>postgres:9.6-alpine</name>
-                                    <alias>it-database</alias>
-                                    <run>
-                                        <ports>
-                                            <port>5433:5432</port>
-                                        </ports>
-                                        <wait>
-                                            <log>(?s)autovacuum launcher started</log>
-                                            <time>20000</time>
-                                        </wait>
-                                        <env>
-                                            <POSTGRES_USER>sworhm</POSTGRES_USER>
-                                            <POSTGRES_PASSWORD>sworhmpw</POSTGRES_PASSWORD>
-                                        </env>
-                                    </run>
-                                </image>
-                            </images>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>remove-it-database</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
 
         <pluginManagement>
@@ -253,4 +208,62 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>withDocker</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.30.0</version>
+                        <configuration>
+                            <skip>${skipTests}</skip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>prepare-it-database</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                                <configuration>
+                                    <images>
+                                        <image>
+                                            <name>postgres:9.6-alpine</name>
+                                            <alias>it-database</alias>
+                                            <run>
+                                                <ports>
+                                                    <port>5433:5432</port>
+                                                </ports>
+                                                <wait>
+                                                    <log>(?s)autovacuum launcher started</log>
+                                                    <time>20000</time>
+                                                </wait>
+                                                <env>
+                                                    <POSTGRES_USER>sworhm</POSTGRES_USER>
+                                                    <POSTGRES_PASSWORD>sworhmpw</POSTGRES_PASSWORD>
+                                                </env>
+                                            </run>
+                                        </image>
+                                    </images>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>remove-it-database</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
