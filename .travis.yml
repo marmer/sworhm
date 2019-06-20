@@ -5,10 +5,6 @@ services:
   - docker
 git:
   depth: false
-env:
-  matrix:
-    - SPRING_DATASOURCE_URL=jdbc:h2:mem:sworhm
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5433/sworhm SPRING_DATASOURCE_PASSWORD=sworhmmpw
 addons:
   sonarcloud:
     organization: "marmer-github"
