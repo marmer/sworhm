@@ -239,7 +239,7 @@
                                             <alias>it-database</alias>
                                             <run>
                                                 <ports>
-                                                    <port>5432:${testDbPort}</port>
+                                                    <port>${testDbPort}:5432</port>
                                                 </ports>
                                                 <wait>
                                                     <log>(?s)autovacuum launcher started</log>
