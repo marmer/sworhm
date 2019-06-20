@@ -4,3 +4,5 @@ logging:
 spring:
   jpa:
     show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5433/sworhm
