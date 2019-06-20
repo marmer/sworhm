@@ -12,3 +12,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/sworhm
     username: sworhm
     password: sworhmpw
+  test:
+    database:
+      replace: none
