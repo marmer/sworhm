@@ -7,6 +7,7 @@ import io.github.marmer.sworhm.rest.v1.converter.external.BookingDtoFromModelCon
 import io.github.marmer.sworhm.rest.v1.converter.internal.BookingFromDtoConverter;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
@@ -50,6 +51,12 @@ public class BookingController {
                            @RequestBody final BookingDto bookingDto) {
         final Booking booking = bookingFromDtoConverter.convert(bookingDto);
         bookingService.saveOrUpdate(booking.withDay(bookingDay));
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBookingById(final String id) {
+        bookingService.deleteBookingById(id);
     }
 
     @Data

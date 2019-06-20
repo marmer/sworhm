@@ -73,4 +73,18 @@ class RelationalBookingPersistencePortAdapterTest {
         // Assertion
         verify(bookingDboRepository).saveOrUpdate(bookingDbo);
     }
+
+    @Test
+    @DisplayName("Booking with the given id should be removed")
+    void deleteBooking_BookingWithTheGivenIdShouldBeRemoved()
+            throws Exception {
+        // Preparation
+        final String id = "someBookingId";
+
+        // Execution
+        underTest.deleteBookingById(id);
+
+        // Assertion
+        verify(bookingDboRepository).deleteBookingById(id);
+    }
 }

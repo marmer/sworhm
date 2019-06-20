@@ -25,4 +25,9 @@ public class SimpleBookingService implements BookingService {
     public void saveOrUpdate(final Booking booking) {
         bookingPersistencePort.saveOrUpdate(booking);
     }
+
+    @Override
+    public void deleteBookingById(final String id) {
+        bookingPersistencePort.deleteBookingById(id);
+    }
 }

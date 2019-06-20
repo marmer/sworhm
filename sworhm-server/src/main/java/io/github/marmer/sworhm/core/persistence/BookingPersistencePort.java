@@ -18,4 +18,6 @@ public interface BookingPersistencePort {
     Stream<Booking> findBookingsByDay(LocalDate day);
 
     void saveOrUpdate(Booking booking);
+
+    void deleteBookingById(String id);
 }

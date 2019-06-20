@@ -57,4 +57,18 @@ class SimpleBookingServiceTest {
         // Assertion
         verify(bookingPersistencePort).saveOrUpdate(booking);
     }
+
+    @Test
+    @DisplayName("Booking with the given id should be removed")
+    void deleteBooking_BookingWithTheGivenIdShouldBeRemoved()
+            throws Exception {
+        // Preparation
+        final String id = "someBookingId";
+
+        // Execution
+        underTest.deleteBookingById(id);
+
+        // Assertion
+        verify(bookingPersistencePort).deleteBookingById(id);
+    }
 }

@@ -24,4 +24,6 @@ public interface BookingService {
      * @param booking Booking to store
      */
     void saveOrUpdate(Booking booking);
+
+    void deleteBookingById(String id);
 }

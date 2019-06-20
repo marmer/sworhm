@@ -14,9 +14,9 @@ import org.springframework.context.annotation.Import;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.util.List;
 
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 @DataJpaTest
@@ -95,5 +95,35 @@ class BookingDboRepositoryIT {
 
         // Assertion
         assertThat(entityManager.findAllOf(BookingDbo.class), containsInAnyOrder(oldBooking, newBooking));
+    }
+
+    @Test
+    @DisplayName("Existing booking should be removed")
+    void deleteBookingById_ExistingBookingShouldBeRemoved()
+            throws Exception {
+        // Preparation
+        final BookingDbo bookingDbo = entityManager.persistAndFlush(testdatageneratorPersistence.newBookingDbo());
+
+        // Execution
+        underTest.deleteBookingById(bookingDbo.getId());
+
+        // Assertion
+        final List<BookingDbo> existingBookings = entityManager.findAllOf(BookingDbo.class);
+        assertThat(existingBookings, is(empty()));
+    }
+
+
+    @Test
+    @DisplayName("No exceptions should be thrown for not existing bookings")
+    void deleteBookingById_NoExceptionsShouldBeThrownForNotExistingBookings()
+            throws Exception {
+        // Preparation
+
+        // Execution
+        underTest.deleteBookingById("idOfNotExistingBooking");
+
+        // Assertion
+        final List<BookingDbo> existingBookings = entityManager.findAllOf(BookingDbo.class);
+        assertThat(existingBookings, is(empty()));
     }
 }

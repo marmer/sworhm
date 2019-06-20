@@ -35,4 +35,9 @@ public class RelationalBookingPersistencePortAdapter implements BookingPersisten
         final BookingDbo dbo = bookingDboFromBookingConverter.convert(booking);
         bookingDboRepository.saveOrUpdate(dbo);
     }
+
+    @Override
+    public void deleteBookingById(final String id) {
+        bookingDboRepository.deleteBookingById(id);
+    }
 }

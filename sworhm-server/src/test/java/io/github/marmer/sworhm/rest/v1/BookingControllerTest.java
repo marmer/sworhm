@@ -77,6 +77,20 @@ class BookingControllerTest {
         verify(bookingService).saveOrUpdate(booking.withDay(day));
     }
 
+    @Test
+    @DisplayName("Booking with the given id should be removed")
+    void deleteBooking_BookingWithTheGivenIdShouldBeRemoved()
+            throws Exception {
+        // Preparation
+        final String id = "someBookingId";
+
+        // Execution
+        underTest.deleteBookingById(id);
+
+        // Assertion
+        verify(bookingService).deleteBookingById(id);
+    }
+
     private LocalDate newLocalDate() {
         return testdatagenerator.getRandom().nextObject(LocalDate.class);
     }
