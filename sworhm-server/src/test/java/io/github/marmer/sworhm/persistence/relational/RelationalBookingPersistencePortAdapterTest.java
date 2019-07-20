@@ -27,9 +27,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class RelationalBookingPersistencePortAdapterTest {
     @RegisterExtension
-    private final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
+    final Testdatagenerator testdatagenerator = new Testdatagenerator();
     @RegisterExtension
-    private final Testdatagenerator testdatagenerator = new Testdatagenerator();
+    final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
     @InjectMocks
     private RelationalBookingPersistencePortAdapter underTest;
     @Mock

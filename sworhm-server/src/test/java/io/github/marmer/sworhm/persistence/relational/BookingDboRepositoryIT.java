@@ -23,7 +23,7 @@ import static org.junit.Assert.assertThat;
 @Import({TransactionlessTestEntityManager.class, DbCleanupService.class})
 class BookingDboRepositoryIT {
     @RegisterExtension
-    private final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
+    final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
     @Inject
     private DbCleanupService dbCleanupService;
     @Inject

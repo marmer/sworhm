@@ -26,9 +26,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class BookingControllerTest {
     @RegisterExtension
-    private final TestdatageneratorRest testdatageneratorRest = new TestdatageneratorRest();
+    final Testdatagenerator testdatagenerator = new Testdatagenerator();
     @RegisterExtension
-    private final Testdatagenerator testdatagenerator = new Testdatagenerator();
+    final TestdatageneratorRest testdatageneratorRest = new TestdatageneratorRest();
     @InjectMocks
     private BookingController underTest;
     @Mock

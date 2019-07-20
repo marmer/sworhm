@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class BookingsSaveIT {
     @RegisterExtension
-    private final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
+    final TestdatageneratorPersistence testdatageneratorPersistence = new TestdatageneratorPersistence();
     @Inject
     private TransactionlessTestEntityManager entityManager;
     @Inject
