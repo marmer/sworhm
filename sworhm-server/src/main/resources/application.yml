@@ -8,7 +8,7 @@ spring:
     show-sql: false
     database: postgresql
   datasource:
-    url: jdbc:postgresql://localhost:@testDbPort@/sworhm
+    url: jdbc:postgresql://localhost:5432/sworhm
     username: sworhm
     password: sworhmpw
   test:
