@@ -27,7 +27,7 @@
         <lombok.version>1.18.8</lombok.version>
         <java-hamcrest.version>2.0.0.0</java-hamcrest.version>
         <mapstruct.version>1.3.0.Final</mapstruct.version>
-        <version.hamcrest-matcher-generator>4.2.0</version.hamcrest-matcher-generator>
+        <version.hamcrest-matcher-generator>4.2.1</version.hamcrest-matcher-generator>
         <spring.testprofiles>test</spring.testprofiles>
         <postgresql.version>42.2.5</postgresql.version>
         <testDbPort>5432</testDbPort>
